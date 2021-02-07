@@ -25,8 +25,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x6062
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    Profet
-#define PRODUCT         Atreus62
+#define MANUFACTURER    Jay
+#define PRODUCT         Atreus60
 
 /* key matrix size */
 // Rows are doubled-up
@@ -34,8 +34,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COLS 10
 
 // wiring of each half
-#define MATRIX_ROW_PINS { D3, D2, D1, D0, D4, C6 }
-#define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3, B2, B6, B5, B4 }
+#define MATRIX_ROW_PINS { B3, B1, F7, F6, F5, F4 }
+#define MATRIX_COL_PINS { D1, D0, D4, C6, D7, E6, B4, B5, B6, B2 }
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION ROW2COL
@@ -53,6 +53,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
+
+/* 設定擊鍵時間 */
+#define TAPPING_TERM 350
+
+/*  */
+#define RETRO_TAPPING
+
+/*  */
+#define COMBO_COUNT 2
+#define COMBO_ALLOW_ACTION_KEYS
 
 /*
  * Feature disable options
