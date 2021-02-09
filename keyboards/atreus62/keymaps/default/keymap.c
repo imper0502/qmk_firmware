@@ -25,15 +25,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,KC_TILD,KC_GRV, KC_UP,  KC_MINS,KC_EQL,                 KC_RCBR,KC_LCBR,   S(KC_UP),  KC_UNDS,   KC_PLUS,_______,
     KC_PGUP,C(KC_A),KC_LEFT,KC_DOWN,KC_RGHT,KC_LPRN,                KC_RPRN,S(KC_LEFT),S(KC_DOWN),S(KC_RGHT),KC_COLN,KC_DQUO,
     KC_PGDN,C(KC_Z),C(KC_X),C(KC_C),C(KC_V),TG(_FN),                KC_RBRC,KC_LBRC,   KC_LABK,   KC_RABK,   KC_QUES,KC_PIPE,
-            XXXXXXX,XXXXXXX,XXXXXXX,_______,_______,_______,_______,_______,_______,   _______,   _______,   _______,
+            TG(_FN),TG(_FN),TG(_FN),_______,_______,_______,_______,_______,_______,   _______,   _______,   _______,
                                                     _______,_______
   ),
   [_FN] = LAYOUT(
             XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,                XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
-    TO(_BS),KC_F1,  KC_F2,  KC_F3,  KC_F4,  XXXXXXX,                KC_PSLS,KC_P7,  KC_P8,  KC_P9,  KC_PMNS,_______,
-    _______,KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_VOLU,                KC_PAST,KC_P4,  KC_P5,  KC_P6,  KC_PPLS,S(KC_HOME),
-    _______,KC_F9,  KC_F10, KC_F11, KC_F12, KC_VOLD,                KC_PEQL,KC_P1,  KC_P2,  KC_P3,  KC_PENT,S(KC_END),
-            XXXXXXX,XXXXXXX,XXXXXXX,TO(_BS),_______,_______,_______,_______,KC_P0,  KC_PDOT,_______,_______,
+    TO(_BS),KC_F9,  KC_F10, KC_F11, KC_F12, RESET,                  KC_PSLS,KC_P7,  KC_P8,  KC_P9,  KC_PMNS,TO(_BS),
+    KC_PGUP,KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_VOLU,                KC_PAST,KC_P4,  KC_P5,  KC_P6,  KC_PPLS,C(KC_HOME),
+    KC_PGDN,KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_VOLD,                KC_PEQL,KC_P1,  KC_P2,  KC_P3,  KC_PENT,C(KC_END),
+            XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,KC_P0,  KC_PDOT,_______,_______,
                                                     _______,_______
   )
 };
