@@ -13,16 +13,16 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BS] = LAYOUT( /* [> QWERTY <] */
-              KC_1,   KC_2,   KC_3,        KC_4,       KC_5,                           KC_6,          KC_7,           KC_8,     KC_9,   KC_0,
-    KC_ESC,   KC_Q,   KC_W,   KC_E,        KC_R,       KC_T,                           KC_Y,          KC_U,           KC_I,     KC_O,   KC_P,   KC_ENT,
-    KC_TAB,   KC_A,   KC_S,LALT_T(KC_D),LSFT_T(KC_F),  KC_G,                           KC_H,          RSFT_T(KC_J),RALT_T(KC_K),KC_L,   KC_SCLN,KC_QUOT,
-    S(KC_TAB),KC_Z,   KC_X,   KC_C,        KC_V,       KC_B,                           KC_N,          KC_M,           KC_COMM,  KC_DOT, KC_SLSH,KC_BSLS,
-              C(KC_C),C(KC_V),KC_CAPS,  LT(_DG,KC_DEL),LCTL_T(KC_SPC), KC_LCTL,KC_RCTL,RCTL_T(KC_SPC),LT(_DG,KC_BSPC),KC_PSCR,  KC_HOME,KC_END,
-                                                                       KC_LGUI,KC_RGUI
+              KC_1,   KC_2,   KC_3,        KC_4,      KC_5,                           KC_6,          KC_7,          KC_8,      KC_9,   KC_0,
+    KC_ESC,   KC_Q,   KC_W,   KC_E,        KC_R,      KC_T,                           KC_Y,          KC_U,          KC_I,      KC_O,   KC_P,   KC_ENT,
+    KC_TAB,   KC_A,   KC_S,LALT_T(KC_D),LSFT_T(KC_F), KC_G,                           KC_H,          RSFT_T(KC_J),RALT_T(KC_K),KC_L,   KC_SCLN,KC_QUOT,
+    S(KC_TAB),KC_Z,   KC_X,   KC_C,        KC_V,      KC_B,                           KC_N,          KC_M,          KC_COMM,   KC_DOT, KC_SLSH,KC_BSLS,
+              C(KC_C),C(KC_V),KC_CAPS,LT(_DG,KC_BSPC),LCTL_T(KC_SPC), KC_LCTL,KC_RCTL,RCTL_T(KC_SPC),LT(_DG,KC_DEL),KC_PSCR,   KC_HOME,KC_END,
+                                                                      KC_LGUI,KC_APP
   ),
   [_DG] = LAYOUT(
             KC_EXLM,KC_AT,  KC_HASH,KC_DLR, KC_PERC,                KC_CIRC,KC_AMPR,   KC_ASTR,   KC_LPRN,   KC_RPRN,
-    _______,KC_TILD,KC_GRV, KC_UP,  KC_MINS,KC_UNDS,                KC_RCBR,KC_LCBR,   S(KC_UP),  KC_EQL,    KC_PLUS,_______,
+    _______,KC_TILD,KC_GRV, KC_UP,  KC_MINS,KC_EQL,                 KC_RCBR,KC_LCBR,   S(KC_UP),  KC_UNDS,   KC_PLUS,_______,
     KC_PGUP,C(KC_A),KC_LEFT,KC_DOWN,KC_RGHT,KC_LPRN,                KC_RPRN,S(KC_LEFT),S(KC_DOWN),S(KC_RGHT),KC_COLN,KC_DQUO,
     KC_PGDN,C(KC_Z),C(KC_X),C(KC_C),C(KC_V),TG(_FN),                KC_RBRC,KC_LBRC,   KC_LABK,   KC_RABK,   KC_QUES,KC_PIPE,
             XXXXXXX,XXXXXXX,XXXXXXX,_______,_______,_______,_______,_______,_______,   _______,   _______,   _______,
