@@ -54,17 +54,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-/* 設定擊鍵時間 */
+/* 擊鍵時間、長按時間 */
 #define TAPPING_TERM 350
 
 /*  */
-#define PERMISSIVE_HOLD
 #define IGNORE_MOD_TAP_INTERRUPT
-#define RETRO_TAPPING
+#define RETRO_TAPPING_PER_KEY
 
-/*  */
-#define COMBO_COUNT 2
-#define COMBO_ALLOW_ACTION_KEYS
+/* 併擊 */
+// #define COMBO_COUNT 1
+// #define COMBO_ALLOW_ACTION_KEYS
 
 /*
  * Feature disable options
