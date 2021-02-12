@@ -41,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     TG(_FN),XXXXXXX,KC_GRV, KC_UP,  KC_MINS,KC_EQL,                 _______,_______,_______,_______,_______,_______,
     KC_TAB ,KC_HOME,KC_LEFT,KC_DOWN,KC_RGHT,KC_END,                 _______,_______,_______,_______,_______,_______,
     XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,                _______,_______,_______,_______,_______,_______,
-            _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,TO(_BS),
+            _______,_______,_______,_______,_______,_______,_______,TO(_BS),_______,_______,_______,_______,
                                                     _______,_______
   ),
   [_SD] = LAYOUT(
@@ -49,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   TG(_FN),   XXXXXXX,   KC_TILD,   S(KC_UP),  KC_UNDS,   KC_PLUS,                   _______,_______,_______,_______,_______,_______,
   S(KC_TAB), S(KC_HOME),S(KC_LEFT),S(KC_DOWN),S(KC_RGHT),S(KC_END),                 _______,_______,_______,_______,_______,_______,
   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,                   _______,_______,_______,_______,_______,_______,
-             _______,   _______,   _______,   _______,   _______,   _______,_______,_______,_______,_______,_______,TO(_BS),
+             _______,   _______,   _______,   _______,   _______,   _______,_______,TO(_BS),_______,_______,_______,_______,
                                                                     _______,_______
   ),
   [_PN] = LAYOUT(
@@ -57,7 +57,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     XXXXXXX,XXXXXXX,KC_GRV, KC_MINS,KC_EQL, XXXXXXX,                XXXXXXX,KC_PLUS,KC_UNDS,KC_TILD,XXXXXXX,XXXXXXX,
     XXXXXXX,KC_EXLM,KC_AT,  KC_HASH,KC_DLR, XXXXXXX,                XXXXXXX,KC_PERC,KC_CIRC,KC_AMPR,KC_ASTR,XXXXXXX,
     XXXXXXX,XXXXXXX,KC_LCBR,KC_LBRC,KC_LPRN,XXXXXXX,                XXXXXXX,KC_RPRN,KC_RBRC,KC_RCBR,XXXXXXX,XXXXXXX,
-            _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
+            _______,_______,_______,_______,_______,_______,_______,TO(_BS),_______,_______,_______,_______,
                                                     _______,_______
   ),
   [_FN] = LAYOUT(
@@ -65,15 +65,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     XXXXXXX,KC_F9,  KC_F10, KC_F11, KC_F12, KC_MUTE,                KC_PSLS,KC_P7,  KC_P8,  KC_P9,  KC_PMNS,XXXXXXX,
     KC_BRIU,KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_VOLU,                KC_PAST,KC_P4,  KC_P5,  KC_P6,  KC_PPLS,C(KC_PLUS),
     KC_BRID,KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_VOLD,                KC_NLCK,KC_P1,  KC_P2,  KC_P3,  KC_PENT,C(KC_MINS),
-            XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,TO(_BS),_______,_______,TO(_BS),KC_P0,  KC_PDOT,XXXXXXX,TO(_BS),
+            XXXXXXX,XXXXXXX,XXXXXXX,KC_BSPC,TO(_BS),_______,_______,TO(_BS),KC_P0,  KC_PDOT,XXXXXXX,XXXXXXX,
                                                     _______,_______
   ),
   [_GM] = LAYOUT( /* [> QWERTY <] */
             KC_1,   KC_2,   KC_3,   KC_4,   KC_5,                   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,
-    KC_GESC,KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,                   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   TO(_BS),
+    KC_GESC,KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,                   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   XXXXXXX,
     KC_TAB, KC_A,   KC_S,   KC_D,   KC_F,   KC_G,                   KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,KC_QUOT,
     KC_ENT, KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,                   KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,KC_BSLS,
-            XXXXXXX,XXXXXXX,XXXXXXX,KC_BSPC,KC_SPC, _______,_______,TO(_BS),KC_DEL, KC_PSCR,XXXXXXX,TO(_BS),
+            XXXXXXX,XXXXXXX,XXXXXXX,KC_BSPC,KC_SPC, _______,_______,TO(_BS),KC_DEL, KC_PSCR,XXXXXXX,XXXXXXX,
                                                     _______,_______
   )
 };
@@ -81,29 +81,52 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // LT() Retro Tapping Setting Here.
 bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case RALT_T(KC_ENT):
-        case GUI_T(KC_APP):
-        case LT_BSPC:
-        case LT_DEL:
-            return false;
-        default:
-            return true;
+    case RALT_T(KC_ENT):
+    case GUI_T(KC_APP):
+    case LT_BSPC:
+    case LT_DEL:
+        return false;
+    default:
+        return true;
     }
 }
 
 void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
+    led_t led_state = host_keyboard_led_state();
     switch (keycode) {
-        case LT_BSPC:
-            if (record->event.pressed) {
-                update_tri_layer(_SD, _PN, _FN);
-            }
-            break;
-        case LT_DEL:
-            if (record->event.pressed) {
-                update_tri_layer(_SD, _PN, _FN);
-            }
-            break;
+    case LT_BSPC:
+        if (record->event.pressed) {
+            update_tri_layer(_SD, _PN, _FN);
+            backlight_enable();
+        } else {
+            if (IS_LAYER_OFF(_FN)) backlight_disable();
+        }
+        break;
+    case LT_DEL:
+        if (record->event.pressed) { update_tri_layer(_SD, _PN, _FN); }
+        break;
+    case KC_CAPS:
+        if (!record->event.pressed) { writePin(B0, !led_state.caps_lock); }
+        break;
+    case KC_NLCK:
+        if (!record->event.pressed) { writePin(B0, !led_state.num_lock); }
+        break;
     }
+}
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    led_t led_state = host_keyboard_led_state();
+    switch (get_highest_layer(state)) {
+    case _FN:
+        backlight_enable();
+        writePin(B0, !led_state.num_lock);
+        break;
+    default: //  for any other layers, or the default layer
+        backlight_disable();
+        writePin(B0, !led_state.caps_lock);
+        break;
+    }
+  return state;
 }
 
 // 自定義按鍵

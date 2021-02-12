@@ -41,16 +41,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION ROW2COL
 
 /* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
+#define MATRIX_HAS_GHOST
 
+/* 背光LED */
 /* number of backlight levels */
 // #define BACKLIGHT_LEVELS 3
+#define BACKLIGHT_PIN D5
+#define BACKLIGHT_ON_STATE 0
+
+/* 自定義LED指示燈 */
+#define LED_PIN_ON_STATE 0
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
+// #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 

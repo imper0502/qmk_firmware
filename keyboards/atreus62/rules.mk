@@ -21,7 +21,8 @@ EXTRAKEY_ENABLE = yes       # Audio control and System control
 CONSOLE_ENABLE = yes         # Console for debug
 COMMAND_ENABLE = yes        # Commands for debug and configuration
 NKRO_ENABLE = no            # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
-#BACKLIGHT_ENABLE = no      # Enable keyboard backlight functionality
+BACKLIGHT_ENABLE = yes      # Enable keyboard backlight functionality
+BACKLIGHT_DRIVER = software
 #MIDI_ENABLE = no            # MIDI controls
 UNICODE_ENABLE = yes         # Unicode
 #BLUETOOTH_ENABLE = yes       # Enable Bluetooth with the Adafruit EZ-Key HID
@@ -30,4 +31,4 @@ UNICODE_ENABLE = yes         # Unicode
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 
 # Combo
-COMBO_ENABLE = yes
+# COMBO_ENABLE = yes
