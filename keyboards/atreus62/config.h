@@ -41,7 +41,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION ROW2COL
 
 /* define if matrix has ghost */
-#define MATRIX_HAS_GHOST
+// #define MATRIX_HAS_GHOST
 
 /* 背光LED */
 /* number of backlight levels */
