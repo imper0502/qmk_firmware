@@ -34,8 +34,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COLS 10
 
 // wiring of each half
-#define MATRIX_ROW_PINS { B3, B1, F7, F6, F5, F4 }
-#define MATRIX_COL_PINS { B5, B4, E6, D7, C6, D4, D0, D1, B6, B2 }
+#define MATRIX_ROW_PINS { B6, B2, B3, B1, F7, F6 }
+#define MATRIX_COL_PINS { B5, B4, E6, D7, C6, D4, D0, D1, D2, D3 }
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION ROW2COL
@@ -44,10 +44,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define MATRIX_HAS_GHOST
 
 /* 背光LED */
-/* number of backlight levels */
+// #define BACKLIGHT_PIN D5
 // #define BACKLIGHT_LEVELS 3
-#define BACKLIGHT_PIN D5
-#define BACKLIGHT_ON_STATE 0
+// #define BACKLIGHT_ON_STATE 0
 
 /* 自定義LED指示燈 */
 #define LED_PIN_ON_STATE 0
@@ -57,17 +56,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 // #define LOCKING_SUPPORT_ENABLE
+
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-/* 擊鍵時間、長按時間 */
-#define TAPPING_TERM 350
-
-/*  */
+/* Tap Configuration */
+#define TAPPING_TERM 300 // 擊鍵時間、長按時間
 #define IGNORE_MOD_TAP_INTERRUPT
 #define RETRO_TAPPING_PER_KEY
 
-/* 併擊 */
+/* Combo */
 // #define COMBO_COUNT 1
 // #define COMBO_ALLOW_ACTION_KEYS
 
