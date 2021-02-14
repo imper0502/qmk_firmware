@@ -71,18 +71,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_RT] = LAYOUT(
             XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,                XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
-    XXXXXXX,XXXXXXX,KC_LCBR,KC_LBRC,KC_LPRN,XXXXXXX,                XXXXXXX,KC_RPRN,KC_RBRC,KC_RCBR,XXXXXXX,XXXXXXX,
+    XXXXXXX,KC_LABK,KC_LCBR,KC_LBRC,KC_LPRN,XXXXXXX,                XXXXXXX,KC_RPRN,KC_RBRC,KC_RCBR,KC_RABK,XXXXXXX,
     XXXXXXX,KC_EXLM,KC_AT,  KC_HASH,KC_DLR, XXXXXXX,                XXXXXXX,KC_PERC,KC_CIRC,KC_AMPR,KC_ASTR,XXXXXXX,
-    XXXXXXX,XXXXXXX,KC_LCBR,KC_LBRC,KC_LPRN,XXXXXXX,                XXXXXXX,KC_RPRN,KC_RBRC,KC_RCBR,XXXXXXX,XXXXXXX,
+    XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,                XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
             _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
                                                     _______,_______
   ),
     [_TP] = LAYOUT(
             XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,                RESET,  XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
-    _______,KC_PMNS,KC_P7,  KC_P8,  KC_P9,  KC_PSLS,                KC_PSLS,KC_P7,  KC_P8,  KC_P9,  KC_PMNS,_______,
-    KC_BSPC,KC_PPLS,KC_P4,  KC_P5,  KC_P6,  KC_PAST,                KC_PAST,KC_P4,  KC_P5,  KC_P6,  KC_PPLS,KC_BSPC,
-    _______,KC_PENT,KC_P1,  KC_P2,  KC_P3,  KC_NLCK,                KC_NLCK,KC_P1,  KC_P2,  KC_P3,  KC_PENT,_______,
-            _______,_______,KC_PDOT,KC_P0,  TO(_BS),_______,_______,TO(_BS),KC_P0,  KC_PDOT,_______,_______,
+    _______,KC_BTN4,KC_BTN1,KC_MS_U,KC_BTN2,KC_WH_U,                KC_PSLS,KC_P7,  KC_P8,  KC_P9,  KC_PMNS,KC_BSPC,
+    _______,KC_BTN5,KC_MS_L,KC_MS_D,KC_MS_R,KC_WH_D,                KC_PAST,KC_P4,  KC_P5,  KC_P6,  KC_PPLS,XXXXXXX,
+    _______,_______,_______,_______,_______,_______,                KC_NLCK,KC_P1,  KC_P2,  KC_P3,  KC_PENT,XXXXXXX,
+            _______,_______,_______,_______,TO(_BS),_______,_______,TO(_BS),KC_P0,  KC_PDOT,XXXXXXX,XXXXXXX,
                                                     _______,_______
   ),
   [_GM] = LAYOUT( /* [> QWERTY <] */
