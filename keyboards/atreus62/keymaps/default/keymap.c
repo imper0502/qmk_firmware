@@ -1,6 +1,3 @@
-// this is the style you want to emulate.
-// This is the canonical layout file for the Quantum project. If you want to add another keyboard,
-
 #include QMK_KEYBOARD_H
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
@@ -9,35 +6,33 @@
 // entirely and just use numbers.
 enum atreus60_layers {
     _BS,
-    _LT,
-    _RT,
-    _TP,
-    _GM
+    _LEFT,
+    _RIGHT,
+    _TOP,
+    _GAME,
 };
 
 // 自定義按鍵在此設定
-// #define LT(layer, kc) (QK_LAYER_TAP | (((layer)&0xF) << 8) | ((kc)&0xFF))
-// #define LM(layer, mod) (QK_LAYER_MOD | (((layer)&0xF) << 4) | ((mod)&0xF))
 enum atreus60_keycodes {
     CPY_PST = SAFE_RANGE,
     ALT_LCK,
     CTL_LCK,
     SFT_LCK,
-    LCK_CLR
+    LCK_CLR,
 };
 bool is_alt_lock = false;
 bool is_ctrl_lock = false;
 bool is_shift_lock = false;
-#define CT_D LCTL_T(KC_D)
-#define ST_F LSFT_T(KC_F)
-#define ST_J RSFT_T(KC_J)
-#define CT_K RCTL_T(KC_K)
-#define LT_LSPC LT(_LT, KC_SPC)
-#define LT_RSPC LT(_RT, KC_SPC)
+#define C_T_D LCTL_T(KC_D)
+#define S_T_F LSFT_T(KC_F)
+#define S_T_J RSFT_T(KC_J)
+#define C_T_K RCTL_T(KC_K)
+#define LT_LSPC LT(_LEFT, KC_SPC)
+#define LT_RSPC LT(_RIGHT, KC_SPC)
 
-// #define LT_CAPS LT(_FN, KC_CAPS)
-#define LT_BSPC LT(_RT, KC_BSPC)
-#define LT_DEL  LT(_RT, KC_DEL)
+#define A_T_DEL LALT_T(KC_DEL)
+#define A_T_ENT RALT_T(KC_ENT)
+#define G_T_APP GUI_T(KC_APP)
 
 // Tap Dance declarations
 enum {
@@ -50,26 +45,31 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [SC_C] = ACTION_TAP_DANCE_DOUBLE(KC_SCOLON, KC_COLON),
 };
 
+enum {
+    LED_ON,
+    LED_OFF,
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BS] = LAYOUT( /* [> QWERTY <] */
-            KC_1,   KC_2,   KC_3,   KC_4,   KC_5,                                 KC_6,   KC_7,   KC_8,   KC_9,   KC_0,
-    KC_GESC,KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,                                 KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_GRV,
-    KC_MINS,KC_A,   KC_S,   CT_D,   ST_F,   KC_G,                                 KC_H,   ST_J,   CT_K,   KC_L,  TD(SC_C),KC_QUOT,
-    KC_EQL, KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,                                 KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,KC_BSLS,
-            CPY_PST,C(KC_Z),G(KC_V),KC_BSPC,LT_LSPC,LALT_T(KC_DEL),RALT_T(KC_ENT),LT_RSPC,KC_TAB, KC_PSCR,KC_CAPS,XXXXXXX,
-                                                     GUI_T(KC_APP),KC_RSFT
+            KC_1,   KC_2,   KC_3,   KC_4,   KC_5,                   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,
+    KC_GESC,KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,                   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_GRV,
+    KC_MINS,KC_A,   KC_S,   C_T_D,  S_T_F,  KC_G,                   KC_H,   S_T_J,  C_T_K,  KC_L,TD(SC_C),  KC_QUOT,
+    KC_EQL, KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,                   KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,KC_BSLS,
+            CPY_PST,C(KC_Z),G(KC_V),KC_BSPC,LT_LSPC,A_T_DEL,A_T_ENT,LT_RSPC,KC_TAB, KC_PSCR,KC_CAPS,XXXXXXX,
+                                                    G_T_APP,KC_RSFT
   ),
 
-  [_LT] = LAYOUT(
-            XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,                XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,TO(_GM),
+  [_LEFT] = LAYOUT(
+            XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,                XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,TO(_GAME),
     LCK_CLR,ALT_LCK,KC_HOME,KC_UP,  KC_END, KC_PGUP,                XXXXXXX,KC_F9,  KC_F10, KC_F11, KC_F12, KC_MUTE,
     CTL_LCK,SFT_LCK,KC_LEFT,KC_DOWN,KC_RGHT,KC_PGDN,                KC_BRIU,KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_VOLU,
-    XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,TG(_TP),                KC_BRID,KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_VOLD,
+    XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,TG(_TOP),               KC_BRID,KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_VOLD,
             _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
                                                     _______,_______
   ),
 
-  [_RT] = LAYOUT(
+  [_RIGHT] = LAYOUT(
             XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,                XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
     XXXXXXX,KC_LABK,KC_LCBR,KC_LBRC,KC_LPRN,XXXXXXX,                XXXXXXX,KC_RPRN,KC_RBRC,KC_RCBR,KC_RABK,XXXXXXX,
     XXXXXXX,KC_EXLM,KC_AT,  KC_HASH,KC_DLR, XXXXXXX,                XXXXXXX,KC_PERC,KC_CIRC,KC_AMPR,KC_ASTR,XXXXXXX,
@@ -77,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
                                                     _______,_______
   ),
-    [_TP] = LAYOUT(
+    [_TOP] = LAYOUT(
             XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,                RESET,  XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
     _______,KC_BTN4,KC_BTN1,KC_MS_U,KC_BTN2,KC_WH_U,                KC_PSLS,KC_P7,  KC_P8,  KC_P9,  KC_PMNS,KC_BSPC,
     _______,KC_BTN5,KC_MS_L,KC_MS_D,KC_MS_R,KC_WH_D,                KC_PAST,KC_P4,  KC_P5,  KC_P6,  KC_PPLS,XXXXXXX,
@@ -85,7 +85,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             _______,_______,_______,_______,TO(_BS),_______,_______,TO(_BS),KC_P0,  KC_PDOT,XXXXXXX,XXXXXXX,
                                                     _______,_______
   ),
-  [_GM] = LAYOUT( /* [> QWERTY <] */
+  [_GAME] = LAYOUT( /* [> QWERTY <] */
             KC_1,   KC_2,   KC_3,   KC_4,   KC_5,                   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,
     KC_GESC,KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,                   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   XXXXXXX,
     KC_TAB, KC_A,   KC_S,   KC_D,   KC_F,   KC_G,                   KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,KC_QUOT,
@@ -97,12 +97,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-    case LALT_T(KC_DEL):
-    case RALT_T(KC_ENT):
-    case GUI_T(KC_APP):
-    // case LT_CAPS:
-    case LT_BSPC:
-    case LT_DEL:
+    case A_T_DEL:
+    case A_T_ENT:
+    case G_T_APP:
         return false;
     default:
         return true;
@@ -175,14 +172,11 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
     led_t led_state = host_keyboard_led_state();
     switch (keycode) {
     case LT_LSPC:
-        if (record->event.pressed) { update_tri_layer(_LT, _RT, _TP); }
+        if (record->event.pressed) { update_tri_layer(_LEFT, _RIGHT, _TOP); }
         break;
     case LT_RSPC:
-        if (record->event.pressed) { update_tri_layer(_LT, _RT, _TP); }
+        if (record->event.pressed) { update_tri_layer(_LEFT, _RIGHT, _TOP); }
         break;
-    // case LT_CAPS:
-    //     if (!record->event.pressed) { writePin(B0, !led_state.caps_lock); }
-    //     break;
     case KC_CAPS:
         if (!record->event.pressed) { writePin(B0, !led_state.caps_lock); }
         break;
@@ -207,37 +201,15 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     }
     led_t led_state = host_keyboard_led_state();
     switch (get_highest_layer(state)) {
-    case _TP:
-        writePin(D5, 0); // 0 means turn-on.
+    case _TOP:
+        writePin(D5, LED_ON); // 0 means turn-on.
         if (!led_state.num_lock) tap_code(KC_NUMLOCK);
         writePin(B0, !led_state.num_lock);
         break;
     default: //  for any other layers, or the default layer
-        writePin(D5, 1); // 1 means turn-off.
+        writePin(D5, LED_OFF); // 1 means turn-off.
         writePin(B0, !led_state.caps_lock);
         break;
     }
   return state;
 }
-
-// Joystick
-// Set Pins
-// uint8_t xPin  = 20;   // VRx = F5
-// uint8_t yPin  = 21;   // VRy = F4
-
-// Set Parameters
-uint16_t minAxisValue = 0;
-uint16_t maxAxisValue = 1023;
-
-uint8_t maxCursorSpeed = 2;
-uint8_t precisionSpeed = 1;
-uint8_t speedRegulator = 20;  // Lower Values Create Faster Movement
-
-int8_t xPolarity = 1;
-int8_t yPolarity = 1;
-
-uint8_t cursorTimeout = 10;
-
-int16_t xOrigin, yOrigin;
-
-uint16_t lastCursor = 0;
