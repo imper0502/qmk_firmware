@@ -33,6 +33,7 @@ enum {
   SEMICOLON_COLON,
   CAPSLOCK_PRINTSCREEN,
   REDO_UNDO,
+  MULTI_PASTE,
 };
 
 void dance_redo_undo_finished(qk_tap_dance_state_t *state, void *user_data) {
@@ -51,11 +52,28 @@ void dance_redo_undo_reset(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
+void dance_multipaste_finished(qk_tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1) {
+        register_code16(C(KC_V));
+    } else {
+        register_code16(G(KC_V));
+    }
+}
+
+void dance_multipaste_reset(qk_tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1) {
+        unregister_code16(C(KC_V));
+    } else {
+        unregister_code16(G(KC_V));
+    }
+}
+
 // Tap Dance definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
   [SEMICOLON_COLON] = ACTION_TAP_DANCE_DOUBLE(KC_SCOLON, KC_COLON),
   [CAPSLOCK_PRINTSCREEN] = ACTION_TAP_DANCE_DOUBLE(KC_CAPSLOCK, KC_PSCREEN),
   [REDO_UNDO] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_redo_undo_finished, dance_redo_undo_reset),
+  [MULTI_PASTE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_multipaste_finished, dance_multipaste_reset),
 };
 
 #define C_T_D   LCTL_T(KC_D)
@@ -65,6 +83,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 #define TD_SCLN TD(SEMICOLON_COLON)
 #define TD_CLPS TD(CAPSLOCK_PRINTSCREEN)
 #define TD_REDO TD(REDO_UNDO)
+#define TD_PST  TD(MULTI_PASTE)
 #define LT_LSPC LT(_LEFT, KC_SPC)
 #define LT_RSPC LT(_RIGHT, KC_SPC)
 #define G_T_DEL GUI_T(KC_DEL)
@@ -91,7 +110,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB, KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,                   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_GRV,
     KC_MINS,KC_A,   KC_S,   C_T_D,  S_T_F,  KC_G,                   KC_H,   S_T_J,  C_T_K,  KC_L,   TD_SCLN,KC_QUOT,
     KC_EQL, KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,                   KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,KC_BSLS,
-            KC_ESC, G(KC_V),TD_REDO,KC_BSPC,LT_LSPC,G_T_DEL,A_T_ENT,LT_RSPC,KC_TAB, TD_CLPS,KC_LANG,CPY_PST,
+            KC_ESC, TD_PST, TD_REDO,KC_BSPC,LT_LSPC,G_T_DEL,A_T_ENT,LT_RSPC,KC_TAB, TD_CLPS,KC_LANG,CPY_PST,
                                                     CPY_PST,ALT_TAB
   ),
   [MAC] = LAYOUT( /* [> QWERTY <] */
