@@ -86,16 +86,19 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 #define TD_PST  TD(MULTI_PASTE)
 #define LT_LSPC LT(_LEFT, KC_SPC)
 #define LT_RSPC LT(_RIGHT, KC_SPC)
-#define G_T_DEL GUI_T(KC_DEL)
-#define A_T_ENT RALT_T(KC_ENT)
+#define A_T_BSP RALT_T(KC_BSPC)
+#define G_T_ENT GUI_T(KC_ENT)
 #define KC_LANG G(KC_SPC)
 
-#define MCC_T_A LCTL_T(KC_A)
 #define MCO_T_S LOPT_T(KC_S)
 #define MCG_T_D LCMD_T(KC_D)
 #define MCG_T_K RCMD_T(KC_K)
 #define MCO_T_L ROPT_T(KC_L)
-#define C_T_DEL LCTL_T(KC_DEL)
+#define C_T_ENT LCTL_T(KC_ENT)
+#define C_T_DEL RCTL_T(KC_BSPC)
+
+#define S_T_4   LSFT_T(KC_4)
+#define S_T_7   RSFT_T(KC_7)
 
 #define TXLED D5
 #define RXLED B0
@@ -107,18 +110,18 @@ enum {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BS] = LAYOUT( /* [> QWERTY <] */
             KC_1,   KC_2,   KC_3,   KC_4,   KC_5,                   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,
-    KC_TAB, KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,                   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_GRV,
-    KC_MINS,KC_A,   KC_S,   C_T_D,  S_T_F,  KC_G,                   KC_H,   S_T_J,  C_T_K,  KC_L,   TD_SCLN,KC_QUOT,
-    KC_EQL, KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,                   KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,KC_BSLS,
-            KC_ESC, TD_PST, TD_REDO,KC_BSPC,LT_LSPC,G_T_DEL,A_T_ENT,LT_RSPC,KC_TAB, TD_CLPS,KC_LANG,CPY_PST,
+    KC_MINS,KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,                   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   CPY_PST,
+    KC_EQL, KC_A,   KC_S,   C_T_D,  S_T_F,  KC_G,                   KC_H,   S_T_J,  C_T_K,  KC_L,   TD_SCLN,KC_QUOT,
+    KC_GRV, KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,                   KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,KC_BSLS,
+            KC_ESC, TD_PST, TD_REDO,KC_TAB, LT_LSPC,G_T_ENT,A_T_BSP,LT_RSPC,KC_DEL ,TD_CLPS,KC_LANG,KC_ESC,
                                                     CPY_PST,ALT_TAB
   ),
   [MAC] = LAYOUT( /* [> QWERTY <] */
             _______,_______,_______,_______,_______,                _______,_______,_______,_______,_______,
     _______,_______,_______,_______,_______,_______,                _______,_______,_______,_______,_______,_______,
-    _______,MCC_T_A,MCO_T_S,MCG_T_D,_______,_______,                _______,_______,MCG_T_K,MCO_T_L,_______,_______,
+    _______,_______,MCO_T_S,MCG_T_D,_______,_______,                _______,_______,MCG_T_K,MCO_T_L,_______,_______,
     _______,_______,_______,_______,_______,_______,                _______,_______,_______,_______,_______,_______,
-            _______,XXXXXXX,G(KC_Z),_______,_______,C_T_DEL,A_T_ENT,_______,_______,KC_CAPS,XXXXXXX,_______,
+            _______,G(KC_V),G(KC_Z),_______,_______,C_T_ENT,C_T_DEL,_______,_______,KC_CAPS,KC_CAPS,_______,
                                                     CPY_PST,XXXXXXX
   ),
   [_LEFT] = LAYOUT(
@@ -132,16 +135,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_RIGHT] = LAYOUT(
             _______,_______,_______,_______,_______,                _______,_______,_______,_______,_______,
-    _______,KC_1,   KC_2,   KC_3,   KC_4,   KC_5,                   KC_6,   KC_7,   KC_8,   KC_9   ,KC_0   ,_______,
     _______,XXXXXXX,KC_LCBR,KC_LBRC,KC_LSPO,KC_LABK,                KC_RABK,KC_RSPC,KC_RBRC,KC_RCBR,XXXXXXX,_______,
+    _______,KC_1,   KC_2,   KC_3,   S_T_4,  KC_5,                   KC_6,   S_T_7,  KC_8,   KC_9   ,KC_0   ,_______,
     _______,KC_EXLM,KC_AT,  KC_HASH,KC_DLR, KC_PERC,                KC_CIRC,KC_AMPR,KC_ASTR,XXXXXXX,XXXXXXX,_______,
             _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
                                                     _______,_______
   ),
   [_TOP] = LAYOUT(
             XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,                RESET,  XXXXXXX,XXXXXXX,XXXXXXX,TO(_GAME),
-    _______,KC_BTN4,KC_BTN1,KC_MS_U,KC_BTN2,KC_WH_U,                KC_PSLS,KC_P7,  KC_P8,  KC_P9,  KC_PMNS,KC_BSPC,
-    _______,KC_BTN5,KC_MS_L,KC_MS_D,KC_MS_R,KC_WH_D,                KC_PAST,KC_P4,  KC_P5,  KC_P6,  KC_PPLS,XXXXXXX,
+    _______,_______,_______,_______,_______,_______,                KC_PSLS,KC_P7,  KC_P8,  KC_P9,  KC_PMNS,KC_BSPC,
+    _______,_______,_______,_______,_______,_______,                KC_PAST,KC_P4,  KC_P5,  KC_P6,  KC_PPLS,XXXXXXX,
     _______,_______,_______,_______,_______,_______,                KC_NLCK,KC_P1,  KC_P2,  KC_P3,  KC_PENT,XXXXXXX,
             _______,_______,_______,_______,TO(_BS),_______,_______,TO(_BS),KC_P0,  KC_PDOT,XXXXXXX,XXXXXXX,
                                                     _______,_______
@@ -163,8 +166,8 @@ void keyboard_pre_init_user(void) {
 
 bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-    case G_T_DEL:
-    case A_T_ENT:
+    case G_T_ENT:
+    case A_T_BSP:
         return false;
     default:
         return true;
