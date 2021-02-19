@@ -52,8 +52,11 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 #define A_T_ENT RALT_T(KC_ENT)
 #define KC_LANG G(KC_SPC)
 
-#define G_T_D LCMD_T(KC_D)
-#define G_T_K RCMD_T(KC_K)
+#define MCC_T_A LCTL_T(KC_A)
+#define MCO_T_S LOPT_T(KC_S)
+#define MCG_T_D LCMD_T(KC_D)
+#define MCG_T_K RCMD_T(KC_K)
+#define MCO_T_L ROPT_T(KC_L)
 #define C_T_DEL LCTL_T(KC_DEL)
 
 #define TXLED D5
@@ -75,7 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [MAC] = LAYOUT( /* [> QWERTY <] */
             _______,_______,_______,_______,_______,                _______,_______,_______,_______,_______,
     _______,_______,_______,_______,_______,_______,                _______,_______,_______,_______,_______,_______,
-    _______,_______,_______,G_T_D,  _______,_______,                _______,_______,G_T_K,  _______,_______,_______,
+    _______,MCC_T_A,MCO_T_S,MCG_T_D,_______,_______,                _______,_______,MCG_T_K,MCO_T_L,_______,_______,
     _______,_______,_______,_______,_______,_______,                _______,_______,_______,_______,_______,_______,
             _______,XXXXXXX,G(KC_Z),_______,_______,C_T_DEL,A_T_ENT,_______,_______,KC_CAPS,XXXXXXX,_______,
                                                     CPY_PST,XXXXXXX
