@@ -76,18 +76,21 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [MULTI_PASTE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_multipaste_finished, dance_multipaste_reset),
 };
 
-#define C_T_D   LCTL_T(KC_D)
-#define S_T_F   LSFT_T(KC_F)
-#define S_T_J   RSFT_T(KC_J)
-#define C_T_K   RCTL_T(KC_K)
 #define TD_SCLN TD(SEMICOLON_COLON)
 #define TD_CLPS TD(CAPSLOCK_PRINTSCREEN)
 #define TD_REDO TD(REDO_UNDO)
 #define TD_PST  TD(MULTI_PASTE)
+
+#define C_T_D   LCTL_T(KC_D)
+#define S_T_F   LSFT_T(KC_F)
+#define S_T_J   RSFT_T(KC_J)
+#define C_T_K   RCTL_T(KC_K)
+
+#define KC_BTAB S(KC_TAB)
 #define LT_LSPC LT(_LEFT, KC_SPC)
-#define LT_RSPC LT(_RIGHT, KC_SPC)
-#define A_T_BSP RALT_T(KC_BSPC)
+#define G_T_DEL GUI_T(KC_DEL)
 #define G_T_ENT GUI_T(KC_ENT)
+#define LT_RSPC LT(_RIGHT, KC_SPC)
 #define KC_LANG G(KC_SPC)
 
 #define MCO_T_S LOPT_T(KC_S)
@@ -109,41 +112,40 @@ enum {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BS] = LAYOUT( /* [> QWERTY <] */
-            KC_1,   KC_2,   KC_3,   KC_4,   KC_5,                   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,
-    KC_MINS,KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,                   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   CPY_PST,
-    KC_EQL, KC_A,   KC_S,   C_T_D,  S_T_F,  KC_G,                   KC_H,   S_T_J,  C_T_K,  KC_L,   TD_SCLN,KC_QUOT,
-    KC_GRV, KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,                   KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,KC_BSLS,
-            KC_ESC, TD_PST, TD_REDO,KC_TAB, LT_LSPC,G_T_ENT,A_T_BSP,LT_RSPC,KC_DEL ,TD_CLPS,KC_LANG,KC_ESC,
+            KC_ESC, TD_REDO,TD_CLPS,TD_PST, KC_DEL,                 KC_6,   KC_7,   KC_8,   KC_9,   KC_0,
+    KC_EQL, KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,                   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_GRV,
+    KC_MINS,KC_A,   KC_S,   C_T_D,  S_T_F,  KC_G,                   KC_H,   S_T_J,  C_T_K,  KC_L,   TD_SCLN,KC_QUOT,
+    KC_ESC, KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,                   KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,KC_BSLS,
+            KC_ESC, KC_LALT,KC_BTAB,KC_BSPC,LT_LSPC,G_T_DEL,G_T_ENT,LT_RSPC,KC_TAB, KC_CAPS,KC_RALT,KC_LANG,
                                                     CPY_PST,ALT_TAB
   ),
-  [MAC] = LAYOUT( /* [> QWERTY <] */
-            _______,_______,_______,_______,_______,                _______,_______,_______,_______,_______,
+  [MAC] = LAYOUT(
+            _______,G(KC_Z),KC_CAPS,G(KC_V),_______,                _______,_______,_______,_______,_______,
     _______,_______,_______,_______,_______,_______,                _______,_______,_______,_______,_______,_______,
     _______,_______,MCO_T_S,MCG_T_D,_______,_______,                _______,_______,MCG_T_K,MCO_T_L,_______,_______,
     _______,_______,_______,_______,_______,_______,                _______,_______,_______,_______,_______,_______,
-            _______,G(KC_V),G(KC_Z),_______,_______,C_T_ENT,C_T_DEL,_______,_______,KC_CAPS,KC_CAPS,_______,
+            _______,_______,_______,_______,_______,C_T_DEL,C_T_ENT,_______,_______,KC_CAPS,_______,_______,
                                                     CPY_PST,XXXXXXX
   ),
   [_LEFT] = LAYOUT(
-            XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,                XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,TG(MAC),
-    LCK_CLR,ALT_LCK,KC_HOME,KC_UP,  KC_END, KC_PGUP,                XXXXXXX,KC_BRID,XXXXXXX,KC_BRIU,XXXXXXX,XXXXXXX,
-    CTL_LCK,SFT_LCK,KC_LEFT,KC_DOWN,KC_RGHT,KC_PGDN,                XXXXXXX,KC_VOLD,KC_MUTE,KC_VOLU,XXXXXXX,XXXXXXX,
+            _______,_______,_______,_______,_______,                _______,_______,_______,_______,_______,
+    _______,SFT_LCK,KC_LCBR,KC_LBRC,KC_LSPO,KC_LABK,                KC_RABK,KC_RSPC,KC_RBRC,KC_RCBR,KC_DOT, _______,
+    _______,KC_1,   KC_2,   KC_3,   S_T_4,  KC_5,                   KC_6,   S_T_7,  KC_8,   KC_9   ,KC_0   ,_______,
+    _______,KC_0,   KC_9,   KC_8,   S_T_7,  KC_6,                   _______,_______,_______,_______,_______,_______,
+            _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
+                                                    _______,_______
+  ),
+  [_RIGHT] = LAYOUT(
+            _______,_______,_______,_______,_______,                _______,_______,_______,_______,_______,
+    XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,                KC_PGUP,KC_HOME,KC_UP,  KC_END, XXXXXXX,XXXXXXX,
+    XXXXXXX,TD_PST, KC_LALT,KC_LCTL,KC_LSFT,XXXXXXX,                KC_PGDN,KC_LEFT,KC_DOWN,KC_RGHT,XXXXXXX,XXXXXXX,
     KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,                  KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11, KC_F12,
             _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
                                                     _______,_______
   ),
-
-  [_RIGHT] = LAYOUT(
-            _______,_______,_______,_______,_______,                _______,_______,_______,_______,_______,
-    _______,XXXXXXX,KC_LCBR,KC_LBRC,KC_LSPO,KC_LABK,                KC_RABK,KC_RSPC,KC_RBRC,KC_RCBR,XXXXXXX,_______,
-    _______,KC_1,   KC_2,   KC_3,   S_T_4,  KC_5,                   KC_6,   S_T_7,  KC_8,   KC_9   ,KC_0   ,_______,
-    _______,KC_EXLM,KC_AT,  KC_HASH,KC_DLR, KC_PERC,                KC_CIRC,KC_AMPR,KC_ASTR,XXXXXXX,XXXXXXX,_______,
-            _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
-                                                    _______,_______
-  ),
   [_TOP] = LAYOUT(
-            XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,                RESET,  XXXXXXX,XXXXXXX,XXXXXXX,TO(_GAME),
-    _______,_______,_______,_______,_______,_______,                KC_PSLS,KC_P7,  KC_P8,  KC_P9,  KC_PMNS,KC_BSPC,
+            KC_MUTE,KC_VOLD,KC_VOLU,XXXXXXX,KC_BRID,                KC_BRIU,XXXXXXX,XXXXXXX,TG(MAC),TO(_GAME),
+    _______,_______,_______,_______, RESET, _______,                KC_PSLS,KC_P7,  KC_P8,  KC_P9,  KC_PMNS,KC_BSPC,
     _______,_______,_______,_______,_______,_______,                KC_PAST,KC_P4,  KC_P5,  KC_P6,  KC_PPLS,XXXXXXX,
     _______,_______,_______,_______,_______,_______,                KC_NLCK,KC_P1,  KC_P2,  KC_P3,  KC_PENT,XXXXXXX,
             _______,_______,_______,_______,TO(_BS),_______,_______,TO(_BS),KC_P0,  KC_PDOT,XXXXXXX,XXXXXXX,
@@ -151,9 +153,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [_GAME] = LAYOUT( /* [> QWERTY <] */
             KC_1,   KC_2,   KC_3,   KC_4,   KC_5,                   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,
-    KC_ESC, KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,                   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_GRV,
-    KC_TAB, KC_A,   KC_S,   KC_D,   KC_F,   KC_G,                   KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,KC_QUOT,
-    KC_ENT, KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,                   KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,KC_BSLS,
+    KC_ESC, KC_2,   KC_Q,   KC_W,   KC_E,   KC_R,                   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_GRV,
+    KC_TAB, KC_3,   KC_A,   KC_S,   KC_D,   KC_F,                   KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,KC_QUOT,
+    KC_ENT, KC_4,   KC_Z,   KC_X,   KC_C,   KC_V,                   KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,KC_BSLS,
             XXXXXXX,XXXXXXX,XXXXXXX,KC_BSPC,KC_SPC, _______,_______,TO(_BS),XXXXXXX,KC_PSCR,G(KC_G),XXXXXXX,
                                                     _______,_______
   )
@@ -167,7 +169,7 @@ void keyboard_pre_init_user(void) {
 bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
     case G_T_ENT:
-    case A_T_BSP:
+    case G_T_DEL:
         return false;
     default:
         return true;
