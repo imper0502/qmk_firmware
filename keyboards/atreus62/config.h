@@ -34,8 +34,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COLS 10
 
 // wiring of each half
-#define MATRIX_ROW_PINS { B6, B2, B3, B1, F7, F6 }
-#define MATRIX_COL_PINS { B5, B4, E6, D7, C6, D4, D0, D1, D2, D3 }
+#define MATRIX_ROW_PINS { B3, B1, F7, F6, F5, F4 }
+#define MATRIX_COL_PINS { B5, B4, E6, D7, C6, D4, D2, D3, B6, B2 }
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION ROW2COL
@@ -47,9 +47,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define BACKLIGHT_PIN D5
 // #define BACKLIGHT_LEVELS 3
 // #define BACKLIGHT_ON_STATE 0
-
-/* 自定義LED指示燈 */
-#define LED_PIN_ON_STATE 0
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
@@ -65,9 +62,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define IGNORE_MOD_TAP_INTERRUPT
 #define RETRO_TAPPING_PER_KEY
 
-/* Combo */
-// #define COMBO_COUNT 1
-// #define COMBO_ALLOW_ACTION_KEYS
+/* OLED Configuration */
+#define OLED_DISPLAY_128X64
 
 /*
  * Feature disable options
