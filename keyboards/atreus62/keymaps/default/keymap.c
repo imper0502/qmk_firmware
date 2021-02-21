@@ -112,15 +112,15 @@ enum {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BS] = LAYOUT( /* [> QWERTY <] */
-            KC_ESC, TD_REDO,TD_CLPS,TD_PST, KC_DEL,                 KC_6,   KC_7,   KC_8,   KC_9,   KC_0,
+            TD_REDO,KC_LALT,KC_LCTL,KC_LSFT,TD_PST,                 XXXXXXX,KC_RSFT,KC_RCTL,KC_RALT,KC_LANG,
     KC_EQL, KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,                   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_GRV,
     KC_MINS,KC_A,   KC_S,   C_T_D,  S_T_F,  KC_G,                   KC_H,   S_T_J,  C_T_K,  KC_L,   TD_SCLN,KC_QUOT,
     KC_ESC, KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,                   KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,KC_BSLS,
-            KC_ESC, KC_LALT,KC_BTAB,KC_BSPC,LT_LSPC,G_T_DEL,G_T_ENT,LT_RSPC,KC_TAB, KC_CAPS,KC_RALT,KC_LANG,
+            TD_REDO,KC_LALT,KC_BTAB,KC_BSPC,LT_LSPC,G_T_DEL,G_T_ENT,LT_RSPC,KC_TAB, TD_CLPS,KC_RALT,KC_LANG,
                                                     CPY_PST,ALT_TAB
   ),
   [MAC] = LAYOUT(
-            _______,G(KC_Z),KC_CAPS,G(KC_V),_______,                _______,_______,_______,_______,_______,
+            G(KC_Z),_______,KC_LGUI,_______,G(KC_V),                _______,_______,KC_RGUI,_______,XXXXXXX,
     _______,_______,_______,_______,_______,_______,                _______,_______,_______,_______,_______,_______,
     _______,_______,MCO_T_S,MCG_T_D,_______,_______,                _______,_______,MCG_T_K,MCO_T_L,_______,_______,
     _______,_______,_______,_______,_______,_______,                _______,_______,_______,_______,_______,_______,
