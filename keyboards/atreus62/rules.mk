@@ -19,7 +19,7 @@ NKRO_ENABLE = yes           # Nkey Rollover - if this doesn't work, see here: ht
 EXTRAKEY_ENABLE = yes       # Audio control and System control
 TAP_DANCE_ENABLE = yes
 OLED_DRIVER_ENABLE = yes
-UNICODE_ENABLE = yes        # Unicode
+# UNICODE_ENABLE = yes        # Unicode
 # BACKLIGHT_ENABLE = yes      # Enable keyboard backlight functionality
 # BLUETOOTH_ENABLE = yes      # Enable Bluetooth with the Adafruit EZ-Key HID
 
