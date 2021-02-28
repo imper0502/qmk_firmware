@@ -41,12 +41,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION ROW2COL
 
 /* define if matrix has ghost */
-// #define MATRIX_HAS_GHOST
-
-/* 背光LED */
-// #define BACKLIGHT_PIN D5
-// #define BACKLIGHT_LEVELS 3
-// #define BACKLIGHT_ON_STATE 0
+#define MATRIX_HAS_GHOST
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
@@ -59,10 +54,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Tap Configuration */
 #define TAPPING_TERM 300 // 擊鍵時間、長按時間
+#define TAPPING_TOGGLE 3
+#define TAPPING_TERM_PER_KEY
 #define IGNORE_MOD_TAP_INTERRUPT
 #define RETRO_TAPPING_PER_KEY
 
-/* OLED Configuration */
+#define COMBO_COUNT 2
+
 #define OLED_DISPLAY_128X64
 #define OLED_TIMEOUT 600000 // 10 分鐘
 

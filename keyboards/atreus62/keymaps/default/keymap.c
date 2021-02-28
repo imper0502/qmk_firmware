@@ -15,19 +15,16 @@ void keyboard_pre_init_user(void) {
   setPinOutput(RXLED);
   writePin(TXLED, LED_OFF);
   writePin(RXLED, LED_OFF);
-  // if (!led_state.num_lock) tap_code(KC_NUMLOCK);
 }
 
 /* 自定義按鍵 */
 enum atreus60_keycodes {
   CPY_PST = SAFE_RANGE,
   ALT_TAB,
-  KC_SPCL,
-  KC_SPCR,
+  ALTbTAB,
 };
 uint16_t alt_tab_timer = 0;
 bool is_alt_tab_active = false;
-bool is_shift_hold = false;
 
 // Tap Dance keycodes
 enum td_keycodes {
@@ -72,34 +69,40 @@ void dance_language_capslock_reset(qk_tap_dance_state_t *state, void *user_data)
 #define TD_ESCS TD(ESCAPE_PRINTSCREEN)
 #define TD_CAPS TD(LANGUAGE_CAPSLOCK)
 
-#define C_T_D   LCTL_T(KC_D)
-#define S_T_F   LSFT_T(KC_F)
-#define S_T_J   RSFT_T(KC_J)
-#define C_T_K   RCTL_T(KC_K)
+#define CT_D LCTL_T(KC_D)
+#define ST_F LSFT_T(KC_F)
+#define ST_J RSFT_T(KC_J)
+#define CT_K RCTL_T(KC_K)
 
-#define LT_LDEL LT(_LEFT, KC_BSPC)
-#define LT_LSPC LT(_RIGHT, KC_SPC)
-#define G_T_TAB GUI_T(KC_TAB)
-#define G_T_ENT GUI_T(KC_ENT)
-#define LT_RSPC LT(_RIGHT, KC_SPC)
-#define LT_RDEL LT(_LEFT, KC_DEL)
+#define LT_LDEL LT(FUN, KC_BSPC)
+#define LT_LSPC LT(NAV, KC_SPC)
+#define GT_TAB LGUI_T(KC_TAB) // I call this modifier 'Major'.
+#define AT_ENT RALT_T(KC_ENT) // I call this modifier 'minor'.
+#define LT_RSPC LT(NAV, KC_SPC)
+#define LT_RDEL LT(FUN, KC_DEL)
 
-#define S_T_4   LSFT_T(KC_4)
-#define S_T_7   RSFT_T(KC_7)
+#define ST_4   LSFT_T(KC_4)
+#define ST_7   RSFT_T(KC_7)
 
-#define LC_T_DN LCTL_T(KC_DOWN)
-#define LS_T_RT LSFT_T(KC_RIGHT)
-#define RS_T_LT RSFT_T(KC_LEFT)
-#define RC_T_DN RCTL_T(KC_DOWN)
+#define LCT_DN LCTL_T(KC_DOWN)
+#define LST_RT LSFT_T(KC_RIGHT)
+#define RST_LT RSFT_T(KC_LEFT)
+#define RCT_DN RCTL_T(KC_DOWN)
 
 /* For macOS */
 #define MCO_T_S LOPT_T(KC_S)
 #define MCG_T_D LCMD_T(KC_D)
 #define MCG_T_K RCMD_T(KC_K)
 #define MCO_T_L ROPT_T(KC_L)
-#define C_T_ENT LCTL_T(KC_ENT)
-#define C_T_DEL RCTL_T(KC_BSPC)
+#define CMT_ENT LCTL_T(KC_ENT)
+#define CMT_DEL RCTL_T(KC_BSPC)
 
+#define CT_DOWN LCTL_T(KC_DOWN)
+#define ST_RGHT LSFT_T(KC_RIGHT)
+#define ST_LEFT RSFT_T(KC_LEFT)
+
+#define CT_P5 RCTL_T(KC_P5)
+#define ST_P0 RSFT_T(KC_P0)
 
 #define _TO_DO_ KC_TRNS
 
@@ -111,59 +114,59 @@ void dance_language_capslock_reset(qk_tap_dance_state_t *state, void *user_data)
 enum atreus60_layers {
   _BS,
   MAC,
-  _LEFT,
-  _RIGHT,
-  _TOP,
-  _GAME,
+  PAD,
+  FUN,
+  NAV,
+  _GM,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BS] = LAYOUT( /* [> QWERTY <] */
-            _TO_DO_,TD_REDO,CPY_PST,TD_MPST,_TO_DO_,                KC_APP ,KC_INS,TG(_TOP),TG(MAC),TO(_GAME),
-    KC_EQL ,KC_Q   ,KC_W   ,KC_E   ,KC_R   ,KC_T   ,                KC_Y   ,KC_U   ,KC_I   ,KC_O   ,KC_P   ,KC_GRV,
-    KC_MINS,KC_A   ,KC_S   ,C_T_D  ,S_T_F  ,KC_G   ,                KC_H   ,S_T_J  ,C_T_K  ,KC_L   ,TD_SCLN,KC_QUOT,
-    KC_ESC ,KC_Z   ,KC_X   ,KC_C   ,KC_V   ,KC_B   ,                KC_N   ,KC_M   ,KC_COMM,KC_DOT ,KC_SLSH,KC_BSLS,
-            XXXXXXX,XXXXXXX,TD_ESCS,LT_LDEL,LT_LSPC,G_T_TAB,G_T_ENT,LT_RSPC,LT_RDEL,TD_CAPS,XXXXXXX,XXXXXXX,
-                                                    CPY_PST,ALT_TAB
+            ALTbTAB,TD_REDO,CPY_PST,TD_MPST,ALT_TAB,               _TO_DO_,OSL(PAD),TG(MAC),TG(_GM),KC_INS,
+    KC_EQL ,KC_Q   ,KC_W   ,KC_E   ,KC_R   ,KC_T   ,                KC_Y   ,KC_U   ,KC_I   ,KC_O   ,KC_P   ,KC_GRV ,
+    KC_MINS,KC_A   ,KC_S   ,CT_D   ,ST_F   ,KC_G   ,                KC_H   ,ST_J   ,CT_K   ,KC_L   ,TD_SCLN,KC_QUOT,
+    KC_LSFT,KC_Z   ,KC_X   ,KC_C   ,KC_V   ,KC_B   ,                KC_N   ,KC_M   ,KC_COMM,KC_DOT ,KC_SLSH,KC_BSLS,
+            TD_ESCS,XXXXXXX,KC_LCTL,LT_LDEL,LT_LSPC,GT_TAB ,AT_ENT ,LT_RSPC,LT_RDEL,KC_APP ,XXXXXXX,TD_CAPS,
+                                                    TT(PAD),LM(MOD_RSFT, PAD)
   ),
   [MAC] = LAYOUT(
             _______,G(KC_Z),_______,G(KC_V),_______,                _______,_______,_______,_______,_______,
     _______,_______,_______,_______,_______,_______,                _______,_______,_______,_______,_______,_______,
     _______,_______,MCO_T_S,MCG_T_D,_______,_______,                _______,_______,MCG_T_K,MCO_T_L,_______,_______,
     _______,_______,_______,_______,_______,_______,                _______,_______,_______,_______,_______,_______,
-            XXXXXXX,XXXXXXX,_______,_______,_______,C_T_DEL,C_T_ENT,_______,_______,KC_CAPS,XXXXXXX,XXXXXXX,
-                                                    CPY_PST,_TO_DO_
+            KC_ESC ,KC_ESC ,KC_LCMD,_______,_______,CMT_DEL,CMT_ENT,_______,_______,KC_RCMD,KC_CAPS,KC_CAPS,
+                                                    _______,_______
   ),
-  [_LEFT] = LAYOUT(
-            _______,_______,_______,_______,_______,                _______,_______,_______,_______,_______,
-    _______,KC_6   ,KC_7   ,KC_8   ,KC_9   ,KC_0   ,                _TO_DO_,_TO_DO_,_TO_DO_,_TO_DO_,_TO_DO_,_______,
+  [PAD] = LAYOUT(
+            KC_MUTE,KC_VOLD,KC_VOLU, RESET ,KC_BRID,                KC_BRIU,TO(_BS),_______,_______,_______,
+    _______,TO(_BS),KC_7   ,KC_8   ,KC_9   ,KC_0   ,                KC_PSLS,KC_P7  ,KC_P8  ,KC_P9  ,KC_PMNS,KC_NLCK,
+    _______,KC_LSFT,KC_4   ,KC_5   ,KC_6   ,KC_DOT ,                KC_PAST,KC_P4  ,CT_P5  ,KC_P6  ,KC_PPLS,KC_CALC,
+    _______,KC_0   ,KC_1   ,KC_2   ,KC_3   ,_______,                KC_INS ,KC_P1  ,KC_P2  ,KC_P3  ,KC_BSPC,_______,
+            _______,_______,_______,_______,_______,_______,_______,ST_P0  ,KC_PDOT,_______,_______,_______,
+                                                    _______,_______
+  ),
+  [FUN] = LAYOUT(
+            _TO_DO_,_TO_DO_,_TO_DO_,_TO_DO_,_TO_DO_,                _TO_DO_,_TO_DO_,_TO_DO_,_TO_DO_,_TO_DO_,
+    KC_F1  ,KC_F2  ,KC_F3  ,KC_F4  ,KC_F5  ,KC_F6  ,                KC_F7  ,KC_F8  ,KC_F9  ,KC_F10 ,KC_F11 ,KC_F12 ,
     _______,KC_1   ,KC_2   ,KC_3   ,KC_4   ,KC_5   ,                KC_6   ,KC_7   ,KC_8   ,KC_9   ,KC_0   ,_______,
-    _______,_TO_DO_,KC_LGUI,KC_LCTL,KC_LSFT,_TO_DO_,                _TO_DO_,KC_RSFT,KC_RCTL,KC_RGUI,_TO_DO_,_______,
-            XXXXXXX,XXXXXXX,_TO_DO_,KC_DOT, KC_LALT,_______,_______,KC_RALT,KC_DOT, _TO_DO_,XXXXXXX,XXXXXXX,
+    _______,KC_0   ,KC_9   ,KC_8   ,KC_7   ,KC_6   ,                KC_5   ,KC_4   ,KC_3   ,KC_2   ,KC_1   ,_______,
+            _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
                                                     _______,_______
   ),
-  [_RIGHT] = LAYOUT(
-            KC_F2  ,KC_F3  ,KC_F4  ,KC_F5  ,KC_F6  ,                KC_F7  ,KC_F8  ,KC_F9  ,KC_F10 ,KC_F11 ,
-    _______,KC_LCBR,KC_HOME,KC_UP,  KC_END, KC_PGUP,                KC_PGUP,KC_HOME,KC_UP,  KC_END, KC_RCBR,_______,
-    _______,KC_LBRC,KC_LEFT,KC_DOWN,KC_RGHT,KC_PGDN,                KC_PGDN,KC_LEFT,KC_DOWN,KC_RGHT,KC_RBRC,_______,
-    _______,KC_LSPO,KC_LGUI,KC_LCTL,KC_LSFT,_TO_DO_,                _TO_DO_,KC_RSFT,KC_RCTL,KC_RGUI,KC_RSPC,_______,
-            XXXXXXX,XXXXXXX,KC_F1  ,_TO_DO_,KC_LALT,_______,_______,KC_RALT,_TO_DO_,KC_F12 ,XXXXXXX,XXXXXXX,
+  [NAV] = LAYOUT(
+            _TO_DO_,_TO_DO_,_TO_DO_,_TO_DO_,_TO_DO_,                _TO_DO_,_TO_DO_,_TO_DO_,_TO_DO_,_TO_DO_,
+    KC_LBRC,KC_LCBR,KC_HOME,KC_UP  ,KC_END ,KC_PGUP,                KC_PGUP,KC_HOME,KC_UP  ,KC_END ,KC_RCBR,KC_RBRC,
+    KC_LABK,KC_LSPO,KC_LEFT,CT_DOWN,ST_RGHT,KC_PGDN,                KC_PGDN,ST_LEFT,CT_DOWN,KC_RGHT,KC_RSPC,KC_RABK,
+    _______,KC_EXLM,KC_AT  ,KC_HASH,KC_DLR ,KC_PERC,                KC_CIRC,KC_AMPR,KC_ASTR,_TO_DO_,_TO_DO_,_______,
+            _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
                                                     _______,_______
   ),
-  [_TOP] = LAYOUT(
-            KC_MUTE,KC_VOLD,KC_VOLU,_TO_DO_,KC_BRID,                KC_BRIU,_TO_DO_,TO(_BS),TG(MAC),TO(_GAME),
-    _______,_______,_______,_______, RESET ,_______,                KC_PSLS,KC_P7  ,KC_P8  ,KC_P9  ,KC_PMNS,KC_BSPC,
-    _______,_______,_______,_______,_______,_______,                KC_PAST,KC_P4  ,KC_P5  ,KC_P6  ,KC_PPLS,XXXXXXX,
-    _______,_______,_______,_______,_______,_______,                KC_NLCK,KC_P1  ,KC_P2  ,KC_P3  ,KC_PENT,XXXXXXX,
-            _______,_______,_______,_______,_______,_______,_______,TO(_BS),KC_P0,  KC_PDOT,XXXXXXX,XXXXXXX,
-                                                    _______,_______
-  ),
-  [_GAME] = LAYOUT( /* [> QWERTY <] */
-            KC_1,   KC_2,   KC_3,   KC_4,   KC_5,                   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,
-    KC_ESC, KC_2,   KC_Q,   KC_W,   KC_E,   KC_R,                   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_GRV,
-    KC_TAB, KC_3,   KC_A,   KC_S,   KC_D,   KC_F,                   KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,KC_QUOT,
-    KC_ENT, KC_4,   KC_Z,   KC_X,   KC_C,   KC_V,                   KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,KC_BSLS,
-            XXXXXXX,XXXXXXX,_TO_DO_,KC_BSPC,KC_SPC, _______,_______,TO(_BS),KC_PSCR,G(KC_G),XXXXXXX,XXXXXXX,
+  [_GM] = LAYOUT( /* [> QWERTY <] */
+            KC_1   ,KC_2   ,KC_3   ,KC_4   ,KC_5   ,                KC_6   ,KC_7   ,KC_8   ,KC_9   ,KC_0   ,
+    KC_ESC ,KC_2   ,KC_Q   ,KC_W   ,KC_E   ,KC_R   ,                KC_Y   ,KC_U   ,KC_I   ,KC_O   ,KC_P   ,KC_GRV ,
+    KC_TAB ,KC_3   ,KC_A   ,KC_S   ,KC_D   ,KC_F   ,                KC_H   ,KC_J   ,KC_K   ,KC_L   ,KC_SCLN,KC_QUOT,
+    KC_ENT ,KC_4   ,KC_Z   ,KC_X   ,KC_C   ,KC_V   ,                KC_N   ,KC_M   ,KC_COMM,KC_DOT ,KC_SLSH,KC_BSLS,
+            XXXXXXX,XXXXXXX,KC_LSFT,KC_BSPC,KC_SPC ,_______,_______,TO(_BS),KC_PSCR,G(KC_G),XXXXXXX,XXXXXXX,
                                                     _______,_______
   )
 };
@@ -172,7 +175,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 layer_state_t layer_state_set_user(layer_state_t state) {
     led_t led_state = host_keyboard_led_state();
     switch (get_highest_layer(state)) {
-        case _TOP:
+        case PAD:
             if (!led_state.num_lock) tap_code(KC_NUMLOCK);
             writePin(RXLED, LED_ON);
             break;
@@ -192,7 +195,7 @@ void matrix_scan_user(void) {
     }
     /* 檢查自定義指示燈 */
     led_t led_state = host_keyboard_led_state();
-    if (IS_LAYER_ON(_TOP)) {
+    if (IS_LAYER_ON(PAD)) {
         if (readPin(TXLED) == led_state.num_lock) writePin(TXLED, !led_state.num_lock);
     } else {
         if (readPin(TXLED) == led_state.caps_lock) writePin(TXLED, !led_state.caps_lock);
@@ -218,13 +221,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case ALT_TAB:
         if (record->event.pressed) {
             if (!is_alt_tab_active) {
-            is_alt_tab_active = true;
-            register_code(KC_LALT);
+                is_alt_tab_active = true;
+                register_code(KC_LALT);
             }
             alt_tab_timer = timer_read();
             register_code(KC_TAB);
         } else {
             unregister_code(KC_TAB);
+        }
+        break;
+    case ALTbTAB:
+        if (record->event.pressed) {
+            if (!is_alt_tab_active) {
+                is_alt_tab_active = true;
+                register_code(KC_LALT);
+            }
+            alt_tab_timer = record->event.time;
+            register_code16(S(KC_TAB));
+        } else {
+            unregister_code16(S(KC_TAB));
         }
         break;
     }
@@ -234,15 +249,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 /* 擊鍵後連帶行為 */
 void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
     oled_render();
-    switch (keycode) {
-    case LT_LDEL:
-    case LT_RDEL:
-        if (record->event.pressed) { update_tri_layer(_LEFT, _RIGHT, _TOP); }
-        break;
-    }
 }
 
 /* 擊鍵設定 */
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case AT_ENT:
+            return TAPPING_TERM + 700;
+        default:
+            return TAPPING_TERM;
+    }
+}
+
 bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
     case LT_LDEL:
@@ -385,12 +403,43 @@ void dance_language_capslock_reset(qk_tap_dance_state_t *state, void *user_data)
 
 // Tap Dance definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
-  [SEMICOLON_COLON] = ACTION_TAP_DANCE_DOUBLE(KC_SCOLON, KC_COLON),
-  [REDO_UNDO] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_redo_undo_finished, dance_redo_undo_reset),
-  [MULTI_PASTE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_multipaste_finished, dance_multipaste_reset),
-  [ESCAPE_PRINTSCREEN] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_esc_screenshot_finished, dance_esc_screenshot_reset),
-  [LANGUAGE_CAPSLOCK] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_language_capslock_finished, dance_language_capslock_reset)
+    [SEMICOLON_COLON] = ACTION_TAP_DANCE_DOUBLE(KC_SCOLON, KC_COLON),
+    [REDO_UNDO] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_redo_undo_finished, dance_redo_undo_reset),
+    [MULTI_PASTE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_multipaste_finished, dance_multipaste_reset),
+    [ESCAPE_PRINTSCREEN] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_esc_screenshot_finished, dance_esc_screenshot_reset),
+    [LANGUAGE_CAPSLOCK] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_language_capslock_finished, dance_language_capslock_reset),
 };
+
+/* 並擊設定 */
+#ifdef COMBO_ENABLE
+enum combo_events {
+  NUMPAD,
+  ENTER
+};
+
+const uint16_t PROGMEM numpad_combo[] = {KC_N, KC_P, COMBO_END};
+const uint16_t PROGMEM enter_combo[] = {KC_R, KC_T, COMBO_END};
+
+combo_t key_combos[COMBO_COUNT] = {
+  [NUMPAD] = COMBO_ACTION(numpad_combo),
+  [ENTER] = COMBO_ACTION(enter_combo),
+};
+
+void process_combo_event(uint16_t combo_index, bool pressed) {
+  switch(combo_index) {
+    case NUMPAD:
+      if (pressed) {
+        layer_on(PAD);
+      }
+      break;
+    case ENTER:
+      if (pressed) {
+        tap_code(KC_ENT);
+      }
+      break;
+  }
+}
+#endif
 
 /* OLED 設定 */
 #ifdef OLED_DRIVER_ENABLE
@@ -406,11 +455,8 @@ static void render_logo(void) {
 }
 
 void oled_task_user(void) {
-    // QMK Logo
-    render_logo();
-    oled_write_P(PSTR("\n"), false);
-
     // Host Keyboard Layer Status
+    oled_write_P(PSTR("\n"), false);
     oled_write_P(PSTR(" Layer: "), false);
 
     switch (get_highest_layer(layer_state)) {
@@ -418,16 +464,16 @@ void oled_task_user(void) {
         case MAC:
             oled_write_P(PSTR("Default\n"), false);
             break;
-        case _LEFT:
-            oled_write_P(PSTR("Num. & Punc.\n"), false);
+        case FUN:
+            oled_write_P(PSTR("Numbers\n"), false);
             break;
-        case _RIGHT:
+        case NAV:
             oled_write_P(PSTR("Navigation\n"), false);
             break;
-        case _TOP:
+        case PAD:
             oled_write("Number Pad\n", false);
             break;
-        case _GAME:
+        case _GM:
             oled_write_P(PSTR("Game Mode\n"), false);
             break;
         default:
@@ -436,10 +482,15 @@ void oled_task_user(void) {
     }
 
     // Host Keyboard LED Status
-    led_t led_state = host_keyboard_led_state();
     oled_write_P(PSTR("\n"), false);
+    led_t led_state = host_keyboard_led_state();
     oled_write_P(led_state.num_lock ? PSTR("NumLock ") : PSTR("        "), false);
     oled_write_P(led_state.caps_lock ? PSTR( "CapsLock ") : PSTR("         "), false);
     oled_write_P(IS_LAYER_ON(MAC) ? PSTR( "mac") : PSTR("Win"), false);
+
+    // QMK Logo
+    oled_write_P(PSTR("\n"), false);
+    oled_write_P(PSTR("\n"), false);
+    render_logo();
 }
 #endif
