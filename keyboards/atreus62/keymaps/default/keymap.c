@@ -5,7 +5,7 @@
 #define RXLED B0
 
 #define LED_PIN_ON_STATE 0
-enum {
+enum led_state {
     LED_ON,
     LED_OFF,
 };
@@ -74,23 +74,28 @@ void td_alt_tap_s_reset(qk_tap_dance_state_t *state, void *user_data);
 void td_alt_tap_l_finished(qk_tap_dance_state_t *state, void *user_data);
 void td_alt_tap_l_reset(qk_tap_dance_state_t *state, void *user_data);
 
-#define TD_REDO TD(REDO_UNDO)
+#define TD_UNDO TD(REDO_UNDO)
 #define TD_MPST TD(MULTI_PASTE)
 #define TD_ESCS TD(ESCAPE_PRINTSCREEN)
 #define TD_CAPS TD(LANGUAGE_CAPSLOCK)
 
 #define TD_TEST TD(TEST)
-#define TST_ALT LALT_T(KC_F)
 
-#define WT_A TD(WIN_TAP_A)
+/* 輸入鍵 */
+#define GT_A TD(WIN_TAP_A)
 #define AT_S TD(ALT_TAP_S)
 #define CT_D LCTL_T(KC_D)
 #define ST_F LSFT_T(KC_F)
+
 #define ST_J RSFT_T(KC_J)
 #define CT_K RCTL_T(KC_K)
 #define AT_L TD(ALT_TAP_L)
 #define TD_SCLN TD(SEMICOLON_COLON)
 
+#define LT_Z LT(FUN, KC_Z)
+#define LT_SLSH LT(FUN, KC_SLSH)
+
+/* 命令鍵 */
 #define LT_LDEL LT(FUN, KC_BSPC)
 #define LT_LSPC LT(NAV, KC_SPC)
 #define MT_TAB LCTL_T(KC_TAB)
@@ -98,30 +103,24 @@ void td_alt_tap_l_reset(qk_tap_dance_state_t *state, void *user_data);
 #define LT_RSPC LT(NAV, KC_SPC)
 #define LT_RDEL LT(FUN, KC_DEL)
 
-#define ST_5 LCTL_T(KC_5)
+/* 數字鍵 */
+#define ST_P0 RSFT_T(KC_P0)
+#define ST_P4 RSFT_T(KC_P4)
+#define CT_5 LCTL_T(KC_5)
+#define CT_P5 RCTL_T(KC_P5)
 #define ST_6 LSFT_T(KC_6)
-
-#define LCT_DN LCTL_T(KC_DOWN)
-#define LST_RT LSFT_T(KC_RIGHT)
-#define RST_LT RSFT_T(KC_LEFT)
-#define RCT_DN RCTL_T(KC_DOWN)
 
 /* For macOS */
 #define MCO_T_S LOPT_T(KC_S)
 #define MCG_T_D LCMD_T(KC_D)
+
 #define MCG_T_K RCMD_T(KC_K)
 #define MCO_T_L ROPT_T(KC_L)
+
 #define MMT_TAB LCMD_T(KC_TAB)
 #define MMT_ENT RCMD_T(KC_ENT)
 
-#define CT_DOWN LCTL_T(KC_DOWN)
-#define ST_RGHT LSFT_T(KC_RIGHT)
-#define ST_LEFT RSFT_T(KC_LEFT)
-
-#define CT_P5 RCTL_T(KC_P5)
-#define ST_P4 RSFT_T(KC_P4)
-#define ST_P0 RSFT_T(KC_P0)
-
+/* 透明鍵 */
 #define _TO_DO_ KC_TRNS
 
 /* 定義鍵盤佈局 */
@@ -140,35 +139,35 @@ enum atreus60_layers {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BS] = LAYOUT( /* [> QWERTY <] */
-            ALTbTAB,TD_REDO,CPY_PST,TD_MPST,ALT_TAB,               OSL(PAD),TG(PAD),TG(MAC),TG(_GM),KC_INS,
+            TD_UNDO,C(KC_X),CPY_PST,TD_MPST,ALT_TAB,                KC_APP ,TG(PAD),TG(MAC),TG(_GM),KC_INS,
     KC_EQL ,KC_Q   ,KC_W   ,KC_E   ,KC_R   ,KC_T   ,                KC_Y   ,KC_U   ,KC_I   ,KC_O   ,KC_P   ,KC_GRV ,
-    KC_MINS,WT_A   ,AT_S   ,CT_D   ,ST_F   ,KC_G   ,                KC_H   ,ST_J   ,CT_K   ,AT_L   ,TD_SCLN,KC_QUOT,
-    TD_ESCS,KC_Z   ,KC_X   ,KC_C   ,KC_V   ,KC_B   ,                KC_N   ,KC_M   ,KC_COMM,KC_DOT ,KC_SLSH,KC_BSLS,
-            TD_ESCS,_______,KC_LWIN,LT_LDEL,LT_LSPC,MT_TAB ,MT_ENT ,LT_RSPC,LT_RDEL,KC_APP ,_______,TD_CAPS,
-                                                    CPY_PST,TD_MPST
+    KC_MINS,GT_A   ,AT_S   ,CT_D   ,ST_F   ,KC_G   ,                KC_H   ,ST_J   ,CT_K   ,AT_L   ,TD_SCLN,KC_QUOT,
+    TD_ESCS,LT_Z   ,KC_X   ,KC_C   ,KC_V   ,KC_B   ,                KC_N   ,KC_M   ,KC_COMM,KC_DOT ,LT_SLSH,KC_BSLS,
+            TD_ESCS,_______,_______,KC_BSPC,LT_LSPC,MT_TAB ,MT_ENT ,LT_RSPC,KC_DEL ,_______,_______,TD_CAPS,
+                                                    KC_LWIN,KC_RWIN
   ),
   [MAC] = LAYOUT(
             _______,G(KC_Z),_______,G(KC_V),_______,                _______,_______,_______,_______,_______,
     _______,_______,_______,_______,_______,_______,                _______,_______,_______,_______,_______,_______,
     _______,_______,MCO_T_S,MCG_T_D,_______,_______,                _______,_______,MCG_T_K,MCO_T_L,_______,_______,
     _______,_______,_______,_______,_______,_______,                _______,_______,_______,_______,_______,_______,
-            KC_ESC ,_______,KC_LCMD,_______,_______,MMT_TAB,MMT_ENT,_______,_______,KC_RCMD,_______,KC_CAPS,
-                                                    _______,_______
+            KC_ESC ,_______,_______,_______,_______,MMT_TAB,MMT_ENT,_______,_______,_______,_______,KC_CAPS,
+                                                    KC_LCTL,KC_RCTL
   ),
   [PAD] = LAYOUT(
-            KC_MUTE,KC_VOLD,KC_VOLU, RESET ,KC_BRID,                KC_BRIU,TO(_BS),_______,_______,_______,
-    KC_ACL2,KC_BTN4,KC_WH_L,KC_MS_U,KC_WH_R,KC_WH_U,                KC_PSLS,KC_P7  ,KC_P8  ,KC_P9  ,KC_PMNS,_______,
-    KC_ACL1,KC_BTN5,KC_MS_L,KC_BTN3,KC_MS_R,KC_WH_D,                KC_PAST,KC_P4  ,CT_P5  ,KC_P6  ,KC_PPLS,KC_NLCK,
-    KC_ACL0,_______,_______,KC_MS_D,_______,_______,                KC_INS ,KC_P1  ,KC_P2  ,KC_P3  ,KC_BSPC,KC_CALC,
-            TO(_BS),_______,_______,KC_BTN1,KC_BTN2,_______,_______,ST_P0  ,KC_PDOT,_______,_______,_______,
-                                                    _______,_______
+            _______,_______,_______, RESET ,_______,                _______,TO(_BS),_______,_______,_______,
+    _______,KC_BTN4,KC_WH_L,KC_MS_U,KC_WH_R,KC_WH_U,                KC_PSLS,KC_P7  ,KC_P8  ,KC_P9  ,KC_PMNS,_______,
+    _______,KC_BTN5,KC_MS_L,KC_MS_D,KC_MS_R,KC_WH_D,                KC_PAST,KC_P4  ,CT_P5  ,KC_P6  ,KC_PPLS,KC_NLCK,
+    _______,_______,KC_ACL0,KC_ACL1,KC_ACL2,_______,                KC_INS ,KC_P1  ,KC_P2  ,KC_P3  ,KC_BSPC,KC_CALC,
+            _______,_______,TO(_BS),KC_BTN1,KC_BTN3,KC_BTN2,_______,ST_P0  ,KC_PDOT,TO(_BS),_______,_______,
+                                                    _______,KC_TAB
   ),
   [FUN] = LAYOUT(
-            KC_F2  ,KC_F3  ,KC_F4  ,KC_F5  ,KC_F6  ,                KC_F7  ,KC_F8  ,KC_F9  ,KC_F10 ,KC_F11 ,
-    _______,KC_DOT ,KC_7   ,KC_8   ,KC_9   ,KC_0   ,                _______,KC_P7  ,KC_P8  ,KC_P9  ,KC_P0  ,_______,
-    _______,_______,KC_4   ,ST_5   ,ST_6   ,_______,                _______,ST_P4  ,CT_P5  ,KC_P6  ,_______,KC_NLCK,
-    _______,KC_0   ,KC_1   ,KC_2   ,KC_3   ,_______,                _______,KC_P1  ,KC_P2  ,KC_P3  ,KC_PDOT,_______,
-            KC_F1  ,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,KC_F12 ,
+            KC_MUTE,KC_VOLD,KC_VOLU,_______,KC_BRID,                KC_BRIU,_______,_______,_______,_______,
+    KC_F5  ,KC_F6  ,KC_7   ,KC_8   ,KC_9   ,KC_0   ,                KC_PMNS,KC_P7  ,KC_P8  ,KC_P9  ,KC_F11 ,KC_F12 ,
+    KC_F3  ,KC_F4  ,KC_4   ,KC_5   ,KC_6   ,KC_DOT ,                KC_PPLS,KC_P4  ,KC_P5  ,KC_P6  ,KC_F9  ,KC_F10 ,
+    KC_F1  ,KC_F2  ,KC_1   ,KC_2   ,KC_3   ,KC_MINS,                TO(PAD),KC_P1  ,KC_P2  ,KC_P3  ,KC_F7  ,KC_F8  ,
+            _______,_______,_______,_______,_______,_______,_______,KC_P0  ,KC_PDOT,_______,_______,_______,
                                                     _______,_______
   ),
   [NAV] = LAYOUT(
@@ -194,6 +193,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     led_t led_state = host_keyboard_led_state();
     switch (get_highest_layer(state)) {
         case PAD:
+        case FUN:
             if (!led_state.num_lock) tap_code(KC_NUMLOCK);
             writePin(RXLED, LED_ON);
             break;
@@ -267,14 +267,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 /* 擊鍵後連帶行為 */
 void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
     oled_render();
-    switch (keycode) {
-        case LT_LDEL:
-        case LT(NAV, KC_SPC):
-        case LT_RDEL:
-            if (record->event.pressed) {
-                update_tri_layer(NAV, FUN, PAD);
-            }
-    }
 }
 
 /* 擊鍵設定 */
@@ -321,6 +313,7 @@ void td_semi_colon_finished(qk_tap_dance_state_t *state, void *user_data) {
             register_code(KC_SCOLON);
             break;
         case SINGLE_HOLD:
+            // layer_on(NAV);
             register_code(KC_RWIN);
             break;
         case DOUBLE_TAP:
@@ -335,6 +328,7 @@ void td_semi_colon_reset(qk_tap_dance_state_t *state, void *user_data) {
             unregister_code(KC_SCOLON);
             break;
         case SINGLE_HOLD:
+            // layer_off(NAV);
             register_code(KC_RSFT);
             unregister_code(KC_RWIN);
             unregister_code(KC_RSFT);
@@ -354,7 +348,7 @@ void td_redo_undo_finished(qk_tap_dance_state_t *state, void *user_data) {
             register_code16(C(KC_Z));
             break;
         case SINGLE_HOLD:
-            register_code16(C(KC_S));
+            register_code16(C(KC_A));
             break;
         case DOUBLE_TAP:
             register_code16(C(KC_Y));
@@ -368,7 +362,7 @@ void td_redo_undo_reset(qk_tap_dance_state_t *state, void *user_data) {
             unregister_code16(C(KC_Z));
             break;
         case SINGLE_HOLD:
-            unregister_code16(C(KC_S));
+            unregister_code16(C(KC_A));
             break;
         case DOUBLE_TAP:
             unregister_code16(C(KC_Y));
@@ -537,9 +531,9 @@ void td_alt_tap_l_finished(qk_tap_dance_state_t *state, void *user_data) {
             register_code(KC_L);
             break;
         case SINGLE_HOLD:
-            register_code(KC_LCTL);
-            register_code(KC_LALT);
-            unregister_code(KC_LCTL);
+            register_code(KC_RCTL);
+            register_code(KC_RALT);
+            unregister_code(KC_RCTL);
             break;
         case DOUBLE_TAP:
             break;
@@ -553,8 +547,8 @@ void td_alt_tap_l_reset(qk_tap_dance_state_t *state, void *user_data) {
             unregister_code(KC_L);
             break;
         case SINGLE_HOLD:
-            unregister_code(KC_LALT);
-            if (!state->interrupted) tap_code(KC_S);
+            unregister_code(KC_RALT);
+            if (!state->interrupted) tap_code(KC_L);
             break;
         case DOUBLE_TAP:
             break;
