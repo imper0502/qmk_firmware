@@ -16,8 +16,9 @@ BOOTLOADER = caterina
 #   the appropriate keymap folder that will get included automatically
 #
 NKRO_ENABLE = yes           # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
-COMBO_ENABLE = yes
+# COMBO_ENABLE = yes
 EXTRAKEY_ENABLE = yes       # Audio control and System control
+KEY_LOCK_ENABLE = yes
 MOUSEKEY_ENABLE = yes       # Mouse keys
 TAP_DANCE_ENABLE = yes
 OLED_DRIVER_ENABLE = yes
