@@ -50,6 +50,7 @@ typedef enum {
     SINGLE_HOLD_WITH_KEYS,
     DOUBLE_TAP,
     DOUBLE_TAP_TYPING,
+    TAP_AND_HOLD,
     OTHERWISE
 } td_state_t;
 
@@ -154,38 +155,38 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_EQL ,KC_Q   ,KC_W   ,KC_E   ,KC_R   ,KC_T   ,                KC_Y   ,KC_U   ,KC_I   ,KC_O   ,KC_P   ,KC_GRV ,
     KC_MINS,ST_A   ,AT_S   ,CT_D   ,WT_F   ,KC_G   ,                KC_H   ,WT_J   ,CT_K   ,AT_L   ,TD_SCLN,KC_QUOT,
     TD_ESCS,KC_Z   ,KC_X   ,KC_C   ,KC_V   ,KC_B   ,                KC_N   ,KC_M   ,KC_COMM,KC_DOT ,KC_SLSH,KC_BSLS,
-            TD_CAPS,TESTKEY,_______,LT_LDEL,LT_LSPC,MT_TAB ,MT_ENT ,LT_RSPC,LT_RDEL,TO(_BS),XXXXXXX,TD_CAPS,
-                                                    MO(NAV),MO(FUN)
+            TD_CAPS,TESTKEY,KC_BSPC,MO(FUN),LT_LSPC,MT_TAB ,MT_ENT ,LT_RSPC,LT_RDEL,TO(_BS),XXXXXXX,TD_CAPS,
+                                                    KC_ENT ,KC_TAB
   ),
   [MAC] = LAYOUT(
             _______,G(KC_Z),_______,G(KC_V),_______,                _______,_______,_______,_______,_______,
     _______,_______,_______,_______,_______,_______,                _______,_______,_______,_______,_______,_______,
-    _______,_______,MCO_T_S,MCG_T_D,_______,_______,                _______,_______,MCG_T_K,MCO_T_L,_______,_______,
+    _______,_______,MCO_T_S,_______,_______,_______,                _______,_______,_______,MCO_T_L,_______,_______,
     _______,_______,_______,_______,_______,_______,                _______,_______,_______,_______,_______,_______,
             KC_ESC ,XXXXXXX,_______,_______,_______,MMT_TAB,MMT_ENT,_______,_______,TO(_BS),XXXXXXX,KC_CAPS,
                                                     _______,_______
   ),
   [PAD] = LAYOUT(
             _______,_______,_______,_______,_______,                _______,_______,_______,_______,_______,
-    _______,KC_BTN4,KC_WH_L,KC_MS_U,KC_WH_R,KC_WH_U,                KC_PSLS,KC_P7  ,KC_P8  ,KC_P9  ,KC_PMNS,KC_TAB ,
-    _______,KC_BTN5,KC_MS_L,KC_MS_D,KC_MS_R,KC_WH_D,                KC_PAST,KC_P4  ,CT_P5  ,KC_P6  ,ST_PPLS,KC_NLCK,
-    _______,_______,KC_ACL0,KC_ACL1,KC_ACL2,_______,                KC_EQL ,KC_P1  ,KC_P2  ,KC_P3  ,KC_BSPC,KC_CALC,
+    _______,KC_BTN4,KC_WH_L,KC_MS_U,KC_WH_R,KC_WH_U,                KC_PSLS,KC_P7  ,KC_P8  ,KC_P9  ,KC_PMNS,_______,
+    _______,KC_BTN5,KC_MS_L,KC_MS_D,KC_MS_R,KC_WH_D,                KC_BSPC,KC_P4  ,CT_P5  ,KC_P6  ,KC_TAB ,KC_NLCK,
+    _______,_______,KC_ACL0,KC_ACL1,KC_ACL2,_______,                KC_PAST,KC_P1  ,KC_P2  ,KC_P3  ,KC_PPLS,KC_CALC,
             _______,XXXXXXX,TO(_BS),KC_BTN1,KC_BTN3,KC_BTN2,_______,KC_P0  ,KC_PDOT,TO(_BS),XXXXXXX,_______,
                                                     _______,_______
   ),
   [FUN] = LAYOUT(
             KC_MUTE,KC_VOLD,KC_VOLU,_______,KC_BRID,                KC_BRIU,KC_F10 ,KC_F11 ,KC_F12 ,_______,
     _______,KC_EQL ,KC_7   ,KC_8   ,KC_9   ,KC_0   ,                 RESET ,KC_F7  ,KC_F8  ,KC_F9  ,TO(PAD),_______,
-    _______,KC_MINS,KC_4   ,KC_5   ,KC_6   ,KC_DOT ,                TO(_BS),KC_F4  ,KC_F5  ,KC_F6  ,TO(MAC),_______,
+    _______,KC_BSPC,KC_4   ,KC_5   ,KC_6   ,KC_DOT ,                TO(FUN),KC_F4  ,KC_F5  ,KC_F6  ,TO(MAC),_______,
     _______,KC_0   ,KC_1   ,KC_2   ,KC_3   ,KC_PERC,                TO(NAV),KC_F1  ,KC_F2  ,KC_F3  ,TO(_GM),_______,
             _______,XXXXXXX,_______,_______,_______,_______,_______,_______,_______,TO(_BS),XXXXXXX,_______,
                                                     _______,_______
   ),
   [NAV] = LAYOUT(
             KC_LWIN,KC_LALT,KC_LCTL,KC_LSFT,_______,                _______,TG(PAD),TG(MAC),TG(_GM),KC_APP ,
-    KC_LBRC,KC_LBRC,KC_HOME,KC_UP  ,KC_END ,KC_PGUP,                KC_PGUP,KC_HOME,KC_UP  ,KC_END ,KC_RBRC,KC_RBRC,
+    KC_LBRC,KC_LABK,KC_HOME,KC_UP  ,KC_END ,KC_PGUP,                KC_PGUP,KC_HOME,KC_UP  ,KC_END ,KC_RABK,KC_RBRC,
     KC_LCBR,KC_LSPO,KC_LEFT,MT_DOWN,KC_RGHT,KC_PGDN,                KC_PGDN,KC_LEFT,MT_DOWN,KC_RGHT,KC_RSPC,KC_RCBR,
-    _______,KC_EXLM,KC_AT  ,KC_HASH,KC_DLR ,KC_PERC,                KC_CIRC,KC_AMPR,KC_ASTR,KC_COLN,_______,_______,
+    _______,KC_EXLM,KC_AT  ,KC_HASH,KC_DLR ,KC_PERC,                KC_CIRC,KC_AMPR,KC_ASTR,KC_QUES,_______,KC_PIPE,
             KC_LWIN,KC_LALT,KC_LCTL,KC_LSFT,_______,_______,_______,_______,_______,TO(_BS),XXXXXXX,_TO_DO_,
                                                     _______,_______
   ),
@@ -315,7 +316,8 @@ bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
 uint8_t current_dance(qk_tap_dance_state_t *state) {
     switch (state->count) {
         case 1:
-            if (state->interrupted || !state->pressed) return SINGLE_TAP;
+            if (state->interrupted) return COMBO;
+            else if(!state->pressed) return SINGLE_TAP;
             else return SINGLE_HOLD;
         case 2:
             return DOUBLE_TAP;
@@ -339,6 +341,7 @@ uint8_t post_dance(qk_tap_dance_state_t *state) {
 void td_win_tap_f_finished(qk_tap_dance_state_t *state, void *user_data) {
     td_state = current_dance(state);
     switch (td_state) {
+        case COMBO:
         case SINGLE_TAP: register_code(KC_F);                   break;
         case SINGLE_HOLD: add_mods(MOD_BIT(KC_LWIN));           break;
         default: return;
@@ -347,6 +350,7 @@ void td_win_tap_f_finished(qk_tap_dance_state_t *state, void *user_data) {
 void td_win_tap_f_reset(qk_tap_dance_state_t *state, void *user_data) {
     td_state = post_dance(state);
     switch (td_state) {
+        case COMBO:
         case SINGLE_TAP: unregister_code(KC_F);                 break;
         case SINGLE_HOLD:
             del_mods(MOD_BIT(KC_LWIN));
@@ -365,6 +369,7 @@ void td_win_tap_f_reset(qk_tap_dance_state_t *state, void *user_data) {
 void td_win_tap_j_finished(qk_tap_dance_state_t *state, void *user_data) {
     td_state = current_dance(state);
     switch (td_state) {
+        case COMBO:
         case SINGLE_TAP: register_code(KC_J);                   break;
         case SINGLE_HOLD: add_mods(MOD_BIT(KC_RWIN));           break;
         default: return;
@@ -373,6 +378,7 @@ void td_win_tap_j_finished(qk_tap_dance_state_t *state, void *user_data) {
 void td_win_tap_j_reset(qk_tap_dance_state_t *state, void *user_data) {
     td_state = post_dance(state);
     switch (td_state) {
+        case COMBO:
         case SINGLE_TAP: unregister_code(KC_J);                 break;
         case SINGLE_HOLD:
             del_mods(MOD_BIT(KC_RWIN));
@@ -391,6 +397,7 @@ void td_win_tap_j_reset(qk_tap_dance_state_t *state, void *user_data) {
 void td_alt_tap_s_finished(qk_tap_dance_state_t *state, void *user_data) {
     td_state = current_dance(state);
     switch (td_state) {
+        case COMBO:
         case SINGLE_TAP: register_code(KC_S);                   break;
         case SINGLE_HOLD: add_mods(MOD_BIT(KC_LALT));           break;
         default: return;
@@ -399,6 +406,7 @@ void td_alt_tap_s_finished(qk_tap_dance_state_t *state, void *user_data) {
 void td_alt_tap_s_reset(qk_tap_dance_state_t *state, void *user_data) {
     td_state = post_dance(state);
     switch (td_state) {
+        case COMBO:
         case SINGLE_TAP: unregister_code(KC_S);                 break;
         case SINGLE_HOLD:
             del_mods(MOD_BIT(KC_LALT));
@@ -417,6 +425,7 @@ void td_alt_tap_s_reset(qk_tap_dance_state_t *state, void *user_data) {
 void td_alt_tap_l_finished(qk_tap_dance_state_t *state, void *user_data) {
     td_state = current_dance(state);
     switch (td_state) {
+        case COMBO:
         case SINGLE_TAP: register_code(KC_L);                   break;
         case SINGLE_HOLD: add_mods(MOD_BIT(KC_RALT));           break;
         default: return;
@@ -425,6 +434,7 @@ void td_alt_tap_l_finished(qk_tap_dance_state_t *state, void *user_data) {
 void td_alt_tap_l_reset(qk_tap_dance_state_t *state, void *user_data) {
     td_state = post_dance(state);
     switch (td_state) {
+        case COMBO:
         case SINGLE_TAP: unregister_code(KC_L);                 break;
         case SINGLE_HOLD:
             del_mods(MOD_BIT(KC_RALT));
@@ -443,6 +453,7 @@ void td_alt_tap_l_reset(qk_tap_dance_state_t *state, void *user_data) {
 void td_semi_colon_finished(qk_tap_dance_state_t *state, void *user_data) {
     td_state = current_dance(state);
     switch (td_state) {
+        case COMBO: add_mods(MOD_BIT(KC_RSFT));         break;
         case SINGLE_TAP: register_code(KC_SCOLON);      break;
         case SINGLE_HOLD: add_mods(MOD_BIT(KC_RSFT));   break;
         default: return;
@@ -451,6 +462,7 @@ void td_semi_colon_finished(qk_tap_dance_state_t *state, void *user_data) {
 void td_semi_colon_reset(qk_tap_dance_state_t *state, void *user_data) {
     td_state = post_dance(state);
     switch (td_state) {
+        case COMBO: del_mods(MOD_BIT(KC_RSFT));                 break;
         case SINGLE_TAP: unregister_code(KC_SCOLON);            break;
         case SINGLE_HOLD:
             del_mods(MOD_BIT(KC_RSFT));
