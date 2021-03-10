@@ -31,15 +31,15 @@ bool     is_alt_tab_active = false;
 // Tap Dance keycodes
 enum td_keycodes {
     TEST,
+    WIN_TAP_F,
+    WIN_TAP_J,
+    ALT_TAP_S,
+    ALT_TAP_L,
     SEMICOLON_COLON,
     REDO_UNDO,
     MULTI_PASTE,
     ESCAPE_PRINTSCREEN,
     LANGUAGE_CAPSLOCK,
-    WIN_TAP_F,
-    WIN_TAP_J,
-    ALT_TAP_S,
-    ALT_TAP_L
 };
 
 // Define a type containing as many tapdance states as you need
@@ -59,22 +59,10 @@ static td_state_t td_state;
 // Declare tap dance functions:
 // Function to determine the current tapdance state
 uint8_t current_dance(qk_tap_dance_state_t *state);
+uint8_t post_dance(qk_tap_dance_state_t *state);
 
 // `finished` and `reset` functions for each tapdance keycode
-void td_semi_colon_finished(qk_tap_dance_state_t *state, void *user_data);
-void td_semi_colon_reset(qk_tap_dance_state_t *state, void *user_data);
-
-void td_redo_undo_finished(qk_tap_dance_state_t *state, void *user_data);
-void td_redo_undo_reset(qk_tap_dance_state_t *state, void *user_data);
-
-void td_multipaste_finished(qk_tap_dance_state_t *state, void *user_data);
-void td_multipaste_reset(qk_tap_dance_state_t *state, void *user_data);
-
-void td_esc_screenshot_finished(qk_tap_dance_state_t *state, void *user_data);
-void td_esc_screenshot_reset(qk_tap_dance_state_t *state, void *user_data);
-
-void td_language_capslock_finished(qk_tap_dance_state_t *state, void *user_data);
-void td_language_capslock_reset(qk_tap_dance_state_t *state, void *user_data);
+#define TD_TEST TD(TEST)
 
 void td_win_tap_f_finished(qk_tap_dance_state_t *state, void *user_data);
 void td_win_tap_f_reset(qk_tap_dance_state_t *state, void *user_data);
@@ -88,12 +76,25 @@ void td_alt_tap_s_reset(qk_tap_dance_state_t *state, void *user_data);
 void td_alt_tap_l_finished(qk_tap_dance_state_t *state, void *user_data);
 void td_alt_tap_l_reset(qk_tap_dance_state_t *state, void *user_data);
 
-#define TD_UNDO TD(REDO_UNDO)
-#define TD_MPST TD(MULTI_PASTE)
-#define TD_ESCS TD(ESCAPE_PRINTSCREEN)
-#define TD_CAPS TD(LANGUAGE_CAPSLOCK)
+#define TD_SCLN TD(SEMICOLON_COLON)
+void td_semi_colon_finished(qk_tap_dance_state_t *state, void *user_data);
+void td_semi_colon_reset(qk_tap_dance_state_t *state, void *user_data);
 
-#define TD_TEST TD(TEST)
+#define TD_UNDO TD(REDO_UNDO)
+void td_redo_undo_finished(qk_tap_dance_state_t *state, void *user_data);
+void td_redo_undo_reset(qk_tap_dance_state_t *state, void *user_data);
+
+#define TD_MPST TD(MULTI_PASTE)
+void td_multipaste_finished(qk_tap_dance_state_t *state, void *user_data);
+void td_multipaste_reset(qk_tap_dance_state_t *state, void *user_data);
+
+#define TD_ESCS TD(ESCAPE_PRINTSCREEN)
+void td_esc_screenshot_finished(qk_tap_dance_state_t *state, void *user_data);
+void td_esc_screenshot_reset(qk_tap_dance_state_t *state, void *user_data);
+
+#define TD_CAPS TD(LANGUAGE_CAPSLOCK)
+void td_language_capslock_finished(qk_tap_dance_state_t *state, void *user_data);
+void td_language_capslock_reset(qk_tap_dance_state_t *state, void *user_data);
 
 /* 輸入鍵 */
 #define ST_A LSFT_T(KC_A)
@@ -102,13 +103,9 @@ void td_alt_tap_l_reset(qk_tap_dance_state_t *state, void *user_data);
 #define WT_F TD(WIN_TAP_F)
 
 #define WT_J TD(WIN_TAP_J)
-#define CT_K RCTL_T(KC_K)
+#define CT_K LCTL_T(KC_K)
 #define AT_L TD(ALT_TAP_L)
-#define ST_SCLN RSFT_T(KC_SCLN)
-#define TD_SCLN TD(SEMICOLON_COLON)
-
-#define LT_Z LT(FUN, KC_Z)
-#define LT_SLSH LT(FUN, KC_SLSH)
+#define ST_SCLN LSFT_T(KC_SCLN)
 
 /* 命令鍵 */
 #define LT_LDEL LT(FUN, KC_BSPC)
@@ -118,10 +115,7 @@ void td_alt_tap_l_reset(qk_tap_dance_state_t *state, void *user_data);
 #define LT_RSPC LT(NAV, KC_SPC)
 #define LT_RDEL LT(FUN, KC_DEL)
 
-#define MT_LDWN LCTL_T(KC_DOWN)
-#define MT_RGHT LSFT_T(KC_RGHT)
-#define MT_LEFT RSFT_T(KC_LEFT)
-#define MT_RDWN RCTL_T(KC_DOWN)
+#define MT_DOWN LCTL_T(KC_DOWN)
 
 /* 數字小鍵盤 */
 #define CT_P5 RCTL_T(KC_P5)
@@ -190,7 +184,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [NAV] = LAYOUT(
             KC_LWIN,KC_LALT,KC_LCTL,KC_LSFT,_______,                _______,TG(PAD),TG(MAC),TG(_GM),KC_APP ,
     KC_LBRC,KC_LBRC,KC_HOME,KC_UP  ,KC_END ,KC_PGUP,                KC_PGUP,KC_HOME,KC_UP  ,KC_END ,KC_RBRC,KC_RBRC,
-    KC_LCBR,KC_LSPO,KC_LEFT,MT_LDWN,KC_RGHT,KC_PGDN,                KC_PGDN,KC_LEFT,MT_RDWN,KC_RGHT,KC_RSPC,KC_RCBR,
+    KC_LCBR,KC_LSPO,KC_LEFT,MT_DOWN,KC_RGHT,KC_PGDN,                KC_PGDN,KC_LEFT,MT_DOWN,KC_RGHT,KC_RSPC,KC_RCBR,
     _______,KC_EXLM,KC_AT  ,KC_HASH,KC_DLR ,KC_PERC,                KC_CIRC,KC_AMPR,KC_ASTR,KC_COLN,_______,_______,
             KC_LWIN,KC_LALT,KC_LCTL,KC_LSFT,_______,_______,_______,_______,_______,TO(_BS),XXXXXXX,_TO_DO_,
                                                     _______,_______
@@ -543,15 +537,16 @@ void td_language_capslock_reset(qk_tap_dance_state_t *state, void *user_data) {
 
 // Tap Dance definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
+    [WIN_TAP_F] =           ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_win_tap_f_finished, td_win_tap_f_reset),
+    [WIN_TAP_J] =           ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_win_tap_j_finished, td_win_tap_j_reset),
+    [ALT_TAP_S] =           ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_alt_tap_s_finished, td_alt_tap_s_reset),
+    [ALT_TAP_L] =           ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_alt_tap_l_finished, td_alt_tap_l_reset),
     [SEMICOLON_COLON] =     ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_semi_colon_finished, td_semi_colon_reset),
     [REDO_UNDO] =           ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_redo_undo_finished, td_redo_undo_reset),
     [MULTI_PASTE] =         ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_multipaste_finished, td_multipaste_reset),
     [ESCAPE_PRINTSCREEN] =  ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_esc_screenshot_finished, td_esc_screenshot_reset),
     [LANGUAGE_CAPSLOCK] =   ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_language_capslock_finished, td_language_capslock_reset),
-    [WIN_TAP_F] =           ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_win_tap_f_finished, td_win_tap_f_reset),
-    [WIN_TAP_J] =           ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_win_tap_j_finished, td_win_tap_j_reset),
-    [ALT_TAP_S] =           ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_alt_tap_s_finished, td_alt_tap_s_reset),
-    [ALT_TAP_L] =           ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_alt_tap_l_finished, td_alt_tap_l_reset)
+
 };
 
 /* 並擊設定 */
